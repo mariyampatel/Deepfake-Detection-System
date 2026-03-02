@@ -8,7 +8,7 @@ import time
 # ===================================
 st.set_page_config(
     page_title="Deepfake Scanner",
-    page_icon="👁️",
+    page_icon="🛡️",
     layout="centered",
     initial_sidebar_state="expanded"
 )
@@ -53,7 +53,7 @@ st.markdown("""
     div.stButton > button:hover {
         background: #ffffff;
         color: #000080;
-        box-shadow: 0 0 10px rgba(0, 0, 128, 0.4);
+        box-shadow: 0 0 10px rgba(0, 128, 0, 0.4);
     }
     
     /* Result Cards */
@@ -91,10 +91,10 @@ def predict_dummy():
     return prediction, confidence
 
 # ===================================
-# 4. SIDEBAR WITH IMAGE
+# 4. SIDEBAR WITH PROFESSIONAL IMAGE
 # ===================================
-# Bright, clean tech aesthetic picture for sidebar
-st.sidebar.image("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", caption="Neural Engine Online")
+# FIXED: Professional Forensic Icon (No more doggy)
+st.sidebar.image("https://images.unsplash.com/photo-1557597774-9d2739f85a76?q=80&w=800&auto=format&fit=crop", caption="Verification Engine Active")
 
 # Navy Blue Typography for System Controls
 st.sidebar.markdown("<h1>System Controls</h1>", unsafe_allow_html=True)
@@ -104,10 +104,10 @@ st.sidebar.markdown("---")
 st.sidebar.markdown("<p style='color: #444; font-size: 0.9rem; font-weight: bold;'>System Status: Active<br>Server: Secure Connection</p>", unsafe_allow_html=True)
 
 # ===================================
-# 5. MAIN UI & HEADER IMAGE
+# 5. MAIN UI & PROFESSIONAL HEADER IMAGE
 # ===================================
-# High-quality bright tech header image
-st.image("https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", use_container_width=True)
+# FIXED: Professional Face Scan/Neural Tech Header (No more doggy)
+st.image("https://images.unsplash.com/photo-1593006526978-651c6c132890?q=80&w=1200&auto=format&fit=crop", use_container_width=True)
 
 st.title("DEEPFAKE NEURAL SCANNER")
 st.markdown("<p style='text-align: center; color: #555; margin-bottom: 30px; font-weight: 500;'>Upload suspect media to our forensic neural network for authenticity verification.</p>", unsafe_allow_html=True)
@@ -128,9 +128,9 @@ if option == "🖼️ Image Scan":
             
             status_text = st.empty()
             status_text.markdown("<h4 style='text-align: center; color: #d97706;'>Running facial landmark analysis...</h4>", unsafe_allow_html=True)
-            time.sleep(0.5) # Optimized Speed
+            time.sleep(0.5) 
             status_text.markdown("<h4 style='text-align: center; color: #d97706;'>Detecting pixel manipulation...</h4>", unsafe_allow_html=True)
-            time.sleep(0.5) # Optimized Speed
+            time.sleep(0.5) 
             status_text.empty() 
 
             prediction, confidence = predict_dummy()
@@ -169,7 +169,7 @@ elif option == "🎥 Video Scan":
             
             status_text = st.empty()
             status_text.markdown("<h4 style='text-align: center; color: #d97706;'>Extracting frames for temporal analysis...</h4>", unsafe_allow_html=True)
-            time.sleep(0.8) # Optimized Speed for faster loading
+            time.sleep(0.8) 
             status_text.empty()
 
             prediction, confidence = predict_dummy()
