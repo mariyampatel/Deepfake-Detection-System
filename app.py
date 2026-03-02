@@ -1,101 +1,75 @@
 import streamlit as st
 import random
 from PIL import Image
+import time
 
 # ===================================
 # 1. PAGE CONFIGURATION
 # ===================================
 st.set_page_config(
-    page_title="Deepfake Detection System",
-    page_icon="🛡️", # Upgraded to a security shield for a more professional vibe
-    layout="wide",
+    page_title="Deepfake Scanner",
+    page_icon="👁️",
+    layout="centered", # Centered for a more focused, app-like feel
     initial_sidebar_state="expanded"
 )
 
 # ===================================
-# 2. CUSTOM CSS (SaaS UI Design)
+# 2. CYBER-THEMED CUSTOM CSS
 # ===================================
-# Clean, modern styling with soft shadows, hover effects, and responsive badges
 st.markdown("""
     <style>
-    /* Global spacing improvements */
-    .block-container {
-        padding-top: 2rem;
-        padding-bottom: 2rem;
+    /* Full Page Background Color / Gradient */
+    .stApp {
+        background: linear-gradient(135deg, #0b132b, #1c2541, #0b132b);
+        color: #e0e1dd;
     }
     
-    /* Hero Section Styling */
-    .hero-container {
+    /* Typography */
+    h1, h2, h3 {
+        color: #00FFEA !important;
+        font-family: 'Courier New', Courier, monospace;
         text-align: center;
-        padding: 2rem 0 3rem 0;
-    }
-    .hero-title {
-        font-size: 3rem;
-        font-weight: 800;
-        margin-bottom: 0.5rem;
-        background: -webkit-linear-gradient(45deg, #4CAF50, #2E7D32);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-    }
-    .hero-subtitle {
-        font-size: 1.2rem;
-        color: #666;
-    }
-
-    /* Result Card Styling */
-    .result-card {
-        padding: 2rem;
-        border-radius: 12px;
-        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-        text-align: center;
-        margin-top: 1rem;
-        background-color: rgba(255, 255, 255, 0.05); /* Works for light & dark mode */
-        border: 1px solid rgba(128, 128, 128, 0.2);
     }
     
-    /* Colored Confidence Badges */
-    .badge-real {
-        background-color: rgba(0, 200, 83, 0.15);
-        color: #00C853;
-        padding: 8px 20px;
-        border-radius: 30px;
-        font-weight: 700;
-        font-size: 1.4rem;
-        display: inline-block;
-        margin-bottom: 1rem;
-        border: 2px solid #00C853;
-    }
-    .badge-fake {
-        background-color: rgba(255, 23, 68, 0.15);
-        color: #FF1744;
-        padding: 8px 20px;
-        border-radius: 30px;
-        font-weight: 700;
-        font-size: 1.4rem;
-        display: inline-block;
-        margin-bottom: 1rem;
-        border: 2px solid #FF1744;
-    }
-
-    /* Modern Button Hover Effects */
+    /* Custom Neon Button */
     div.stButton > button {
-        width: 100%;
+        background: transparent;
+        color: #00FFEA;
+        border: 2px solid #00FFEA;
         border-radius: 8px;
-        font-weight: 600;
-        padding: 0.6rem;
-        transition: all 0.3s ease;
+        padding: 10px 24px;
+        font-size: 16px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        width: 100%;
+        transition: 0.3s ease-in-out;
     }
     div.stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 15px rgba(0,0,0,0.15);
+        background: #00FFEA;
+        color: #0b132b;
+        box-shadow: 0 0 15px #00FFEA;
     }
     
-    /* Footer Styling */
-    .footer {
+    /* Result Cards */
+    .scan-result-fake {
+        background: rgba(255, 0, 60, 0.1);
+        border-left: 5px solid #ff003c;
+        padding: 20px;
+        border-radius: 5px;
         text-align: center;
-        padding-top: 3rem;
-        font-size: 0.9rem;
-        color: #888;
+    }
+    .scan-result-real {
+        background: rgba(0, 255, 234, 0.1);
+        border-left: 5px solid #00FFEA;
+        padding: 20px;
+        border-radius: 5px;
+        text-align: center;
+    }
+    .score-text {
+        font-size: 2.5rem;
+        font-weight: bold;
+        margin: 0;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -104,121 +78,118 @@ st.markdown("""
 # 3. CORE LOGIC (UNTOUCHED)
 # ===================================
 def predict_dummy():
-    """Dummy prediction function - DO NOT ALTER"""
+    """Dummy prediction logic"""
     prediction = random.choice(["Real", "Fake"])
     confidence = round(random.uniform(0.75, 0.99), 4)
     return prediction, confidence
 
-def display_results(prediction, confidence):
-    """Helper function to render the sleek UI result card"""
-    st.markdown("### Analysis Complete")
-    
-    # Determine styles based on result
-    if prediction == "Real":
-        badge_class = "badge-real"
-        icon = "✅"
-    else:
-        badge_class = "badge-fake"
-        icon = "🚨"
-
-    # Render Custom HTML Card
-    st.markdown(f"""
-        <div class="result-card">
-            <div class="{badge_class}">
-                {icon} {prediction.upper()}
-            </div>
-            <h4 style="margin-bottom: 5px;">Confidence Score</h4>
-            <h2 style="margin-top: 0;">{confidence * 100:.2f}%</h2>
-        </div>
-    """, unsafe_allow_html=True)
-    
-    # Render Streamlit Progress Bar for visual feedback
-    st.progress(float(confidence))
-
 # ===================================
-# 4. APP LAYOUT & UI
+# 4. SIDEBAR WITH IMAGE
 # ===================================
+# Adding a cool AI aesthetic picture to the sidebar
+st.sidebar.image("https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", caption="Neural Engine Online")
 
-# Hero Section
-st.markdown("""
-    <div class="hero-container">
-        <div class="hero-title">Deepfake Detection System</div>
-        <div class="hero-subtitle">Advanced AI analysis for image and video authenticity</div>
-    </div>
-""", unsafe_allow_html=True)
-
-# Sidebar Navigation with Emojis
-st.sidebar.title("🛡️ Settings & Nav")
-st.sidebar.markdown("Select the type of media you wish to analyse:")
-option = st.sidebar.radio("Input Type", ["🖼️ Image Analysis", "🎥 Video Analysis"])
+st.sidebar.title("System Controls")
+option = st.sidebar.radio("Select Targeting Mode:", ["🖼️ Image Scan", "🎥 Video Scan"])
 
 st.sidebar.markdown("---")
-st.sidebar.info("💡 **Tip:** Ensure your media is clear and faces are visible for the best accuracy.")
-
-# Create two responsive columns for the main layout (Desktop: side-by-side, Mobile: stacked)
-col1, col2 = st.columns([1, 1], gap="large")
+st.sidebar.markdown("<p style='color: #888; font-size: 0.8rem;'>System Status: Active<br>Server: Secure Connection</p>", unsafe_allow_html=True)
 
 # ===================================
-# IMAGE ANALYSIS SECTION
+# 5. MAIN UI & HEADER IMAGE
 # ===================================
-if option == "🖼️ Image Analysis":
-    with col1:
-        st.subheader("1. Upload Media")
-        uploaded_file = st.file_uploader("Drag and drop an image here", type=["jpg", "jpeg", "png"])
+# Adding a high-tech banner image at the top of the app
+st.image("https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", use_container_width=True)
 
-        # Preview Container
-        if uploaded_file is not None:
-            with st.container(border=True):
-                image = Image.open(uploaded_file)
-                st.image(image, caption="Media Preview", use_container_width=True)
-
-    with col2:
-        st.subheader("2. AI Analysis")
-        
-        # Empty state handling
-        if uploaded_file is None:
-            st.info("👈 Please upload an image to begin analysis.")
-        else:
-            # Predict button is now separated logically into the action column
-            if st.button("🔍 Run Deepfake Analysis", type="primary"):
-                with st.spinner("AI is examining facial artifacts and pixels..."):
-                    # Core logic triggered
-                    prediction, confidence = predict_dummy()
-                    # Display upgraded UI results
-                    display_results(prediction, confidence)
+st.title("DEEPFAKE NEURAL SCANNER")
+st.markdown("<p style='text-align: center; color: #a8b2d1; margin-bottom: 30px;'>Upload suspect media to our forensic neural network for authenticity verification.</p>", unsafe_allow_html=True)
 
 # ===================================
-# VIDEO ANALYSIS SECTION
+# IMAGE SCANNER
 # ===================================
-elif option == "🎥 Video Analysis":
-    with col1:
-        st.subheader("1. Upload Media")
-        uploaded_video = st.file_uploader("Drag and drop a video here", type=["mp4", "mov", "avi"])
+if option == "🖼️ Image Scan":
+    
+    uploaded_file = st.file_uploader("INITIALIZE IMAGE UPLOAD", type=["jpg", "jpeg", "png"])
 
-        if uploaded_video is not None:
-            with st.container(border=True):
-                st.video(uploaded_video)
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file)
+        # Display the uploaded image inside a styled container
+        with st.container(border=True):
+            st.image(image, caption="Target Acquired", use_container_width=True)
 
-    with col2:
-        st.subheader("2. AI Analysis")
-        
-        if uploaded_video is None:
-            st.info("👈 Please upload a video file to begin analysis.")
-        else:
-            if st.button("🔍 Run Deepfake Analysis", type="primary"):
-                with st.spinner("Extracting frames and analyzing temporal anomalies..."):
-                    # Core logic triggered
-                    prediction, confidence = predict_dummy()
-                    # Display upgraded UI results
-                    display_results(prediction, confidence)
+        if st.button("INITIATE SCAN SEQUENCE"):
+            
+            # Using an empty placeholder to create a cool scanning text effect
+            status_text = st.empty()
+            status_text.markdown("<h4 style='text-align: center; color: #ffbc42;'>Running facial landmark analysis...</h4>", unsafe_allow_html=True)
+            time.sleep(1) # Fake delay for effect
+            status_text.markdown("<h4 style='text-align: center; color: #ffbc42;'>Detecting pixel manipulation...</h4>", unsafe_allow_html=True)
+            time.sleep(1.5)
+            status_text.empty() # Clear the status text
+
+            prediction, confidence = predict_dummy()
+
+            # Display the Cyber-themed results
+            if prediction == "Fake":
+                st.markdown(f"""
+                    <div class="scan-result-fake">
+                        <h2 style="color: #ff003c; margin: 0;">🚨 THREAT DETECTED: {prediction.upper()} 🚨</h2>
+                        <p style="color: #ccc; margin-top: 10px;">Artificial manipulation identified in media structure.</p>
+                        <p class="score-text" style="color: #ff003c;">{confidence * 100:.2f}%</p>
+                        <p>Confidence Score</p>
+                    </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.markdown(f"""
+                    <div class="scan-result-real">
+                        <h2 style="color: #00FFEA; margin: 0;">✅ MEDIA AUTHENTICATED: {prediction.upper()}</h2>
+                        <p style="color: #ccc; margin-top: 10px;">No deepfake artifacts detected in neural scan.</p>
+                        <p class="score-text" style="color: #00FFEA;">{confidence * 100:.2f}%</p>
+                        <p>Confidence Score</p>
+                    </div>
+                """, unsafe_allow_html=True)
 
 # ===================================
-# 5. FOOTER
+# VIDEO SCANNER
 # ===================================
-st.markdown("""
-    <div class="footer">
-        <hr>
-        © 2026 Deepfake Detection System | Built for Final Year Project<br>
-        <i>Secure • Fast • Reliable</i>
-    </div>
-""", unsafe_allow_html=True)
+elif option == "🎥 Video Scan":
+    
+    uploaded_video = st.file_uploader("INITIALIZE VIDEO UPLOAD", type=["mp4", "mov", "avi"])
+
+    if uploaded_video is not None:
+        with st.container(border=True):
+            st.video(uploaded_video)
+
+        if st.button("INITIATE FRAME SCAN"):
+            
+            status_text = st.empty()
+            status_text.markdown("<h4 style='text-align: center; color: #ffbc42;'>Extracting frames for temporal analysis...</h4>", unsafe_allow_html=True)
+            time.sleep(2)
+            status_text.empty()
+
+            prediction, confidence = predict_dummy()
+
+            if prediction == "Fake":
+                st.markdown(f"""
+                    <div class="scan-result-fake">
+                        <h2 style="color: #ff003c; margin: 0;">🚨 THREAT DETECTED: {prediction.upper()} 🚨</h2>
+                        <p style="color: #ccc; margin-top: 10px;">Temporal inconsistencies and artificial artifacts identified.</p>
+                        <p class="score-text" style="color: #ff003c;">{confidence * 100:.2f}%</p>
+                        <p>Confidence Score</p>
+                    </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.markdown(f"""
+                    <div class="scan-result-real">
+                        <h2 style="color: #00FFEA; margin: 0;">✅ MEDIA AUTHENTICATED: {prediction.upper()}</h2>
+                        <p style="color: #ccc; margin-top: 10px;">Video sequence cleared by neural engine.</p>
+                        <p class="score-text" style="color: #00FFEA;">{confidence * 100:.2f}%</p>
+                        <p>Confidence Score</p>
+                    </div>
+                """, unsafe_allow_html=True)
+
+# ===================================
+# FOOTER
+# ===================================
+st.markdown("<br><hr style='border-color: #1c2541;'>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #555;'>DEEPFAKE FORENSICS v2.0 | ENCRYPTED CONNECTION</p>", unsafe_allow_html=True)
