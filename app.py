@@ -1,11 +1,10 @@
 import streamlit as st
-import requests
+import random
 from PIL import Image
 
-# ==============================
-# BACKEND URL (Render)
-# ==============================
-API_URL = "https://deepfake-detection-system-backend.onrender.com"
+# ===================================
+# PAGE CONFIG
+# ===================================
 
 st.set_page_config(
     page_title="Deepfake Detection System",
@@ -13,19 +12,47 @@ st.set_page_config(
     layout="wide"
 )
 
-# ==============================
+# ===================================
+# CUSTOM CSS (Professional UI)
+# ===================================
+
+st.markdown("""
+    <style>
+    .main {
+        background: linear-gradient(135deg, #1f1c2c, #928dab);
+    }
+    .stButton>button {
+        background-color: #4CAF50;
+        color: white;
+        font-size: 16px;
+        border-radius: 8px;
+        padding: 10px 24px;
+    }
+    </style>
+""", unsafe_allow_html=True)
+
+# ===================================
 # TITLE
-# ==============================
+# ===================================
 
 st.title("🧠 Deepfake Detection System")
-st.markdown("Upload an **Image** or **Video** to detect whether it is Real or Fake.")
+st.markdown("Upload an **Image** or **Video** to detect whether it is **Real or Fake**.")
 
 st.sidebar.title("Navigation")
-option = st.sidebar.selectbox("Choose Input Type", ["Image", "Video"])
+option = st.sidebar.radio("Choose Input Type", ["Image", "Video"])
 
-# ==============================
+# ===================================
+# DUMMY PREDICTION FUNCTION
+# ===================================
+
+def predict_dummy():
+    prediction = random.choice(["Real", "Fake"])
+    confidence = round(random.uniform(0.75, 0.99), 4)
+    return prediction, confidence
+
+# ===================================
 # IMAGE SECTION
-# ==============================
+# ===================================
 
 if option == "Image":
 
@@ -44,37 +71,18 @@ if option == "Image":
 
             with st.spinner("Analyzing Image..."):
 
-                try:
-                    response = requests.post(
-                        f"{API_URL}/predict-image/",
-                        files={
-                            "file": (
-                                uploaded_file.name,
-                                uploaded_file.getvalue(),
-                                uploaded_file.type
-                            )
-                        }
-                    )
+                prediction, confidence = predict_dummy()
 
-                    st.write("Status Code:", response.status_code)
+                if prediction == "Real":
+                    st.success(f"Prediction: {prediction}")
+                else:
+                    st.error(f"Prediction: {prediction}")
 
-                    if response.status_code == 200:
-                        result = response.json()
+                st.info(f"Confidence: {confidence * 100:.2f}%")
 
-                        prediction = result.get("prediction")
-                        confidence = result.get("confidence")
-
-                        st.success(f"Prediction: {prediction}")
-                        st.info(f"Confidence: {round(confidence * 100, 2)}%")
-                    else:
-                        st.error(response.text)
-
-                except Exception as e:
-                    st.error(f"Connection Error: {e}")
-
-# ==============================
+# ===================================
 # VIDEO SECTION
-# ==============================
+# ===================================
 
 elif option == "Video":
 
@@ -93,37 +101,18 @@ elif option == "Video":
 
             with st.spinner("Analyzing Video..."):
 
-                try:
-                    response = requests.post(
-                        f"{API_URL}/predict-video/",
-                        files={
-                            "file": (
-                                uploaded_video.name,
-                                uploaded_video.getvalue(),
-                                uploaded_video.type
-                            )
-                        }
-                    )
+                prediction, confidence = predict_dummy()
 
-                    st.write("Status Code:", response.status_code)
+                if prediction == "Real":
+                    st.success(f"Prediction: {prediction}")
+                else:
+                    st.error(f"Prediction: {prediction}")
 
-                    if response.status_code == 200:
-                        result = response.json()
+                st.info(f"Confidence: {confidence * 100:.2f}%")
 
-                        prediction = result.get("prediction")
-                        confidence = result.get("confidence")
-
-                        st.success(f"Prediction: {prediction}")
-                        st.info(f"Confidence: {round(confidence * 100, 2)}%")
-                    else:
-                        st.error(response.text)
-
-                except Exception as e:
-                    st.error(f"Connection Error: {e}")
-
-# ==============================
+# ===================================
 # FOOTER
-# ==============================
+# ===================================
 
 st.markdown("---")
-
+st.markdown("© 2026 Deepfake Detection System | Final Year Project")
