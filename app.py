@@ -105,7 +105,7 @@ st.sidebar.markdown("<p style='color: #444; font-size: 0.9rem; font-weight: bold
 # 5. MAIN UI & HEADER IMAGE
 # ===================================
 # Using the high-tech face scanning banner you liked
-st.image("https://images.unsplash.com/photo-1557853113-bbd49242d54a?q=80&w=1200&auto=format&fit=crop", use_container_width=True)
+st.image("https:C:/Users/DELL/Desktop/deepfake/56387.jpg", use_container_width=True)
 
 
 st.title("DEEPFAKE NEURAL SCANNER")
@@ -189,3 +189,4 @@ elif option == "🎥 Video Scan":
 # ===================================
 st.markdown("<br><hr style='border-color: #B2EBF2;'>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #666; font-weight: bold;'>DEEPFAKE FORENSICS v2.0 | SECURE CONNECTION</p>", unsafe_allow_html=True)
+
