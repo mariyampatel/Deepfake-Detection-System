@@ -93,8 +93,8 @@ def predict_dummy():
 # ===================================
 # 4. SIDEBAR WITH IMAGE
 # ===================================
-# Bright, clean tech aesthetic picture for sidebar
-st.sidebar.image("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", caption="Neural Engine Online")
+# Image 1 (Sidebar): Scanning and Security Concept
+st.sidebar.image("https://images.unsplash.com/photo-1593006526978-651c6c132890?q=80&w=600&auto=format&fit=crop", caption="Verification Protocol")
 
 # Navy Blue Typography for System Controls
 st.sidebar.markdown("<h1>System Controls</h1>", unsafe_allow_html=True)
@@ -106,8 +106,8 @@ st.sidebar.markdown("<p style='color: #444; font-size: 0.9rem; font-weight: bold
 # ===================================
 # 5. MAIN UI & HEADER IMAGE
 # ===================================
-# High-quality bright tech header image
-st.image("https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", use_container_width=True)
+# Image 2 (Main Screen): Professional Face Scanning Technology Concept
+st.image("https://images.unsplash.com/photo-1557853113-bbd49242d54a?q=80&w=1200&auto=format&fit=crop", use_container_width=True)
 
 st.title("DEEPFAKE NEURAL SCANNER")
 st.markdown("<p style='text-align: center; color: #555; margin-bottom: 30px; font-weight: 500;'>Upload suspect media to our forensic neural network for authenticity verification.</p>", unsafe_allow_html=True)
