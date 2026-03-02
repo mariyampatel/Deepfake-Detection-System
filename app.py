@@ -24,7 +24,7 @@ st.markdown("""
         color: #e0e1dd;
     }
     .sidebar-title {
-            color: #FF4B4B;
+            color: #000066;
             font-size: 26px;
             font-weight: bold;
         }
@@ -197,6 +197,7 @@ elif option == "🎥 Video Scan":
 # ===================================
 st.markdown("<br><hr style='border-color: #1c2541;'>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #555;'>DEEPFAKE FORENSICS v2.0 | ENCRYPTED CONNECTION</p>", unsafe_allow_html=True)
+
 
 
 
