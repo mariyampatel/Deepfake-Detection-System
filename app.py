@@ -9,7 +9,7 @@ import time
 st.set_page_config(
     page_title="Deepfake Scanner",
     page_icon="👁️",
-    layout="centered", # Centered for a more focused, app-like feel
+    layout="centered",
     initial_sidebar_state="expanded"
 )
 
@@ -24,8 +24,14 @@ st.markdown("""
         color: #e0e1dd;
     }
     
+    /* Sidebar Background Color */
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #1c2541, #0b132b);
+        border-right: 1px solid #3a506b;
+    }
+    
     /* Typography */
-    h1, h2, h3 {
+    h1, h3 {
         color: #00FFEA !important;
         font-family: 'Courier New', Courier, monospace;
         text-align: center;
@@ -58,6 +64,7 @@ st.markdown("""
         padding: 20px;
         border-radius: 5px;
         text-align: center;
+        box-shadow: 0 4px 15px rgba(255, 0, 60, 0.2);
     }
     .scan-result-real {
         background: rgba(0, 255, 234, 0.1);
@@ -65,6 +72,7 @@ st.markdown("""
         padding: 20px;
         border-radius: 5px;
         text-align: center;
+        box-shadow: 0 4px 15px rgba(0, 255, 234, 0.2);
     }
     .score-text {
         font-size: 2.5rem;
@@ -75,7 +83,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # ===================================
-# 3. CORE LOGIC (UNTOUCHED)
+# 3. CORE LOGIC
 # ===================================
 def predict_dummy():
     """Dummy prediction logic"""
@@ -84,25 +92,32 @@ def predict_dummy():
     return prediction, confidence
 
 # ===================================
-# 4. SIDEBAR WITH IMAGE
+# 4. SIDEBAR
 # ===================================
-# Adding a cool AI aesthetic picture to the sidebar
-st.sidebar.image("https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", caption="Neural Engine Online")
+# Premium AI / Tech Face Image for Sidebar
+st.sidebar.image("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", caption="Neural Engine v2.4.1")
 
-st.sidebar.title("System Controls")
+# NAVY BLUE "System Controls" on a light card for maximum visibility
+st.sidebar.markdown("""
+    <div style="background-color: #e0e1dd; padding: 12px; border-radius: 5px; text-align: center; margin-bottom: 20px; border-bottom: 3px solid #00FFEA;">
+        <h2 style="color: #000080; margin: 0; font-family: 'Arial', sans-serif; font-weight: 900; font-size: 22px; text-transform: uppercase;">System Controls</h2>
+    </div>
+""", unsafe_allow_html=True)
+
 option = st.sidebar.radio("Select Targeting Mode:", ["🖼️ Image Scan", "🎥 Video Scan"])
 
+st.sidebar.markdown("<br><br><br>", unsafe_allow_html=True)
 st.sidebar.markdown("---")
-st.sidebar.markdown("<p style='color: #888; font-size: 0.8rem;'>System Status: Active<br>Server: Secure Connection</p>", unsafe_allow_html=True)
+st.sidebar.markdown("<p style='color: #00FFEA; font-size: 0.85rem; font-family: monospace;'>● System Status: Active<br>● Server: Encrypted Connection</p>", unsafe_allow_html=True)
 
 # ===================================
 # 5. MAIN UI & HEADER IMAGE
 # ===================================
-# FIXED: Replaced local C: drive path with a web URL for cloud deployment
-st.image("https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", use_container_width=True)
+# High-tech cyber security lens image for the main banner
+st.image("https://images.unsplash.com/photo-1507146426996-ef05306b995a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", use_container_width=True)
 
 st.title("DEEPFAKE NEURAL SCANNER")
-st.markdown("<p style='text-align: center; color: #a8b2d1; margin-bottom: 30px;'>Upload suspect media to our forensic neural network for authenticity verification.</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #a8b2d1; margin-bottom: 30px; font-size: 1.1rem;'>Upload suspect media to our forensic neural network for authenticity verification.</p>", unsafe_allow_html=True)
 
 # ===================================
 # IMAGE SCANNER
@@ -113,23 +128,19 @@ if option == "🖼️ Image Scan":
 
     if uploaded_file is not None:
         image = Image.open(uploaded_file)
-        # Display the uploaded image inside a styled container
         with st.container(border=True):
             st.image(image, caption="Target Acquired", use_container_width=True)
 
         if st.button("INITIATE SCAN SEQUENCE"):
-            
-            # Using an empty placeholder to create a cool scanning text effect
             status_text = st.empty()
             status_text.markdown("<h4 style='text-align: center; color: #ffbc42;'>Running facial landmark analysis...</h4>", unsafe_allow_html=True)
-            time.sleep(1) # Fake delay for effect
+            time.sleep(1) 
             status_text.markdown("<h4 style='text-align: center; color: #ffbc42;'>Detecting pixel manipulation...</h4>", unsafe_allow_html=True)
             time.sleep(1.5)
-            status_text.empty() # Clear the status text
+            status_text.empty() 
 
             prediction, confidence = predict_dummy()
 
-            # Display the Cyber-themed results
             if prediction == "Fake":
                 st.markdown(f"""
                     <div class="scan-result-fake">
@@ -161,7 +172,6 @@ elif option == "🎥 Video Scan":
             st.video(uploaded_video)
 
         if st.button("INITIATE FRAME SCAN"):
-            
             status_text = st.empty()
             status_text.markdown("<h4 style='text-align: center; color: #ffbc42;'>Extracting frames for temporal analysis...</h4>", unsafe_allow_html=True)
             time.sleep(2)
@@ -191,5 +201,5 @@ elif option == "🎥 Video Scan":
 # ===================================
 # FOOTER
 # ===================================
-st.markdown("<br><hr style='border-color: #1c2541;'>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #555;'>DEEPFAKE FORENSICS v2.0 | ENCRYPTED CONNECTION</p>", unsafe_allow_html=True)
+st.markdown("<br><hr style='border-color: #3a506b;'>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #888; font-family: monospace;'>DEEPGUARD AI v2.4.1 | ENCRYPTED CONNECTION</p>", unsafe_allow_html=True)
