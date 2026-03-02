@@ -98,8 +98,8 @@ st.sidebar.markdown("<p style='color: #888; font-size: 0.8rem;'>System Status: A
 # ===================================
 # 5. MAIN UI & HEADER IMAGE
 # ===================================
-# Adding a high-tech banner image at the top of the app
-st.image("C:/Users/DELL/Desktop/deepfake/56387.jpg", use_container_width=True)
+# FIXED: Replaced local C: drive path with a web URL for cloud deployment
+st.image("https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80", use_container_width=True)
 
 st.title("DEEPFAKE NEURAL SCANNER")
 st.markdown("<p style='text-align: center; color: #a8b2d1; margin-bottom: 30px;'>Upload suspect media to our forensic neural network for authenticity verification.</p>", unsafe_allow_html=True)
