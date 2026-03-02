@@ -7,72 +7,53 @@ import time
 # 1. PAGE CONFIGURATION
 # ===================================
 st.set_page_config(
-    page_title="Deepfake Neural Scanner",
+    page_title="Deepfake Scanner",
     page_icon="🛡️",
     layout="centered",
     initial_sidebar_state="expanded"
 )
 
 # ===================================
-# 2. THEME & STYLING (Light Blue & Navy)
+# 2. LIGHT BLUE & NAVY CUSTOM CSS
 # ===================================
 st.markdown("""
     <style>
-    /* Main Background */
+    /* Main Background - Light Blue */
     .stApp {
-        background-color: #E0F7FA;
-        color: #1c2541;
+        background-color: #F0F8FF; 
+        color: #333333;
     }
     
-    /* Sidebar Styling */
+    /* Sidebar - Navy Blue */
     [data-testid="stSidebar"] {
-        background-color: #000080; /* Navy Blue Sidebar */
-        color: white;
+        background-color: #000080;
     }
     
+    /* Force Sidebar text to be White for visibility */
     [data-testid="stSidebar"] * {
         color: white !important;
     }
-
-    /* Header Banner Effect */
-    .header-container {
-        background: linear-gradient(90deg, #000080, #0056b3);
-        padding: 30px;
-        border-radius: 15px;
-        text-align: center;
-        margin-bottom: 25px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-    }
-
-    /* Navy Blue Headings */
-    h1 {
+    
+    /* Typography - Navy Blue for Headers */
+    h1, h2, h3 {
         color: #000080 !important;
-        font-family: 'Helvetica Neue', sans-serif;
-        font-weight: 800;
+        font-family: 'Segoe UI', sans-serif;
+        text-align: center;
     }
-
-    /* Professional Button */
+    
+    /* Custom Button */
     div.stButton > button {
         background: #000080;
         color: white;
-        border-radius: 10px;
-        border: none;
-        padding: 12px 20px;
+        border-radius: 8px;
+        padding: 10px 24px;
+        font-weight: 700;
         width: 100%;
-        font-weight: bold;
         transition: 0.3s;
     }
     div.stButton > button:hover {
         background: #0056b3;
-        transform: translateY(-2px);
-    }
-
-    /* Result Cards */
-    .result-box {
-        padding: 25px;
-        border-radius: 15px;
-        text-align: center;
-        border: 2px solid;
+        color: white;
     }
     </style>
 """, unsafe_allow_html=True)
@@ -82,82 +63,70 @@ st.markdown("""
 # ===================================
 def predict_dummy():
     prediction = random.choice(["Real", "Fake"])
-    confidence = round(random.uniform(0.82, 0.99), 4)
+    confidence = round(random.uniform(0.85, 0.99), 4)
     return prediction, confidence
 
 # ===================================
-# 4. SIDEBAR
+# 4. SIDEBAR WITH IMAGES
 # ===================================
-st.sidebar.markdown("<h2 style='text-align: center;'>🛡️ SCANNER</h2>", unsafe_allow_html=True)
+# Professional Scanning Image for Sidebar
+st.sidebar.image("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=400&q=80", caption="Neural System Online")
+st.sidebar.markdown("### Control System")
+option = st.sidebar.radio("Navigation:", ["🖼️ Image Scan", "🎥 Video Scan"])
+
 st.sidebar.markdown("---")
-option = st.sidebar.radio("Navigation", ["🖼️ Image Scan", "🎥 Video Scan"])
-
-st.sidebar.markdown("<br><br><br>", unsafe_allow_html=True)
-st.sidebar.info("Status: System Online\n\nSecurity: Encrypted")
+st.sidebar.write("Status: Active")
 
 # ===================================
-# 5. MAIN CONTENT
+# 5. MAIN UI & HEADER IMAGE
 # ===================================
-# Replacing the broken image with a CSS-based Professional Banner
-st.markdown("""
-    <div class="header-container">
-        <h1 style="color: white !important; margin:0;">DEEPFAKE NEURAL SCANNER</h1>
-        <p style="color: #e0e0e0; margin-top:10px;">Advanced Forensic Authenticity Verification</p>
-    </div>
-""", unsafe_allow_html=True)
+# Main Header Image - AI Face Scan
+st.image("https://images.unsplash.com/photo-1507146426996-ef05306b995a?auto=format&fit=crop&w=1000&q=80", use_container_width=True)
 
+st.title("DEEPFAKE NEURAL SCANNER")
+st.markdown("<p style='text-align: center; font-weight: 500;'>Advanced Forensic Verification Engine</p>", unsafe_allow_html=True)
+
+# ===================================
+# IMAGE SCANNER
+# ===================================
 if option == "🖼️ Image Scan":
-    uploaded_file = st.file_uploader("Upload Image for Analysis", type=["jpg", "jpeg", "png"])
-
+    uploaded_file = st.file_uploader("UPLOAD IMAGE", type=["jpg", "png", "jpeg"])
+    
     if uploaded_file:
         img = Image.open(uploaded_file)
-        st.image(img, caption="Analyzable Asset", use_container_width=True)
+        st.image(img, caption="Target Asset", use_container_width=True)
         
-        if st.button("RUN NEURAL ANALYSIS"):
-            with st.status("Analyzing pixel consistency...", expanded=True) as status:
-                time.sleep(0.6)
-                st.write("Checking facial landmarks...")
-                time.sleep(0.6)
-                st.write("Verifying metadata integrity...")
-                status.update(label="Analysis Complete!", state="complete")
-
-            res, conf = predict_dummy()
+        if st.button("RUN ANALYSIS"):
+            with st.spinner("Analyzing artifacts..."):
+                time.sleep(0.8)
             
+            res, conf = predict_dummy()
             if res == "Fake":
-                st.markdown(f"""
-                    <div style="background: #ffe5e5; border-color: #cc0000;" class="result-box">
-                        <h2 style="color: #cc0000;">🚨 FAKE DETECTED 🚨</h2>
-                        <p style="font-size: 24px; font-weight: bold; color: #333;">Confidence: {conf*100:.2f}%</p>
-                    </div>
-                """, unsafe_allow_html=True)
+                st.error(f"ALERT: {res.upper()} detected with {conf*100:.2f}% confidence.")
             else:
-                st.markdown(f"""
-                    <div style="background: #e5f9e5; border-color: #008000;" class="result-box">
-                        <h2 style="color: #008000;">✅ AUTHENTIC ✅</h2>
-                        <p style="font-size: 24px; font-weight: bold; color: #333;">Confidence: {conf*100:.2f}%</p>
-                    </div>
-                """, unsafe_allow_html=True)
+                st.success(f"VERIFIED: Media is {res.upper()} ({conf*100:.2f}%)")
 
+# ===================================
+# VIDEO SCANNER
+# ===================================
 elif option == "🎥 Video Scan":
-    uploaded_video = st.file_uploader("Upload Video for Analysis", type=["mp4", "mov", "avi"])
-
+    uploaded_video = st.file_uploader("UPLOAD VIDEO", type=["mp4", "mov"])
+    
     if uploaded_video:
         st.video(uploaded_video)
         
         if st.button("RUN TEMPORAL SCAN"):
-            progress_bar = st.progress(0)
+            # Fixed loading speed for smoother experience
+            progress = st.progress(0)
             for i in range(100):
-                time.sleep(0.01) # Super fast loading
-                progress_bar.progress(i + 1)
+                time.sleep(0.01)
+                progress.progress(i + 1)
             
             res, conf = predict_dummy()
-            if res == "Fake":
-                st.error(f"High probability of synthetic manipulation: {conf*100:.2f}%")
-            else:
-                st.success(f"No significant deepfake artifacts found: {conf*100:.2f}%")
+            st.info(f"Result: {res} | Confidence: {conf*100:.2f}%")
 
 # ===================================
 # FOOTER
 # ===================================
 st.markdown("<br><hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #888;'>Final Year Project 2026 | Forensic AI Module</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align: center; color: #777;'>Forensic AI Project 2026</p>", unsafe_allow_html=True)
