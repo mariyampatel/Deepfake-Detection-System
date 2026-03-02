@@ -23,7 +23,11 @@ st.markdown("""
         background: linear-gradient(135deg, #0b132b, #1c2541, #0b132b);
         color: #e0e1dd;
     }
-    
+    .sidebar-title {
+            color: #FF4B4B;
+            font-size: 24px;
+            font-weight: bold;
+        }
     /* Typography */
     h1, h2, h3 {
         color: #00FFEA !important;
@@ -89,7 +93,7 @@ def predict_dummy():
 # Adding a cool AI aesthetic picture to the sidebar
 st.sidebar.image("https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80", caption="Neural Engine Online")
 
-st.sidebar.title("System Controls")
+st.sidebar.markdown('<p class="sidebar-title">System Controls</p>', unsafe_allow_html=True)
 option = st.sidebar.radio("Select Targeting Mode:", ["🖼️ Image Scan", "🎥 Video Scan"])
 
 st.sidebar.markdown("---")
@@ -193,5 +197,6 @@ elif option == "🎥 Video Scan":
 # ===================================
 st.markdown("<br><hr style='border-color: #1c2541;'>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #555;'>DEEPFAKE FORENSICS v2.0 | ENCRYPTED CONNECTION</p>", unsafe_allow_html=True)
+
 
 
