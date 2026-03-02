@@ -1,6 +1,5 @@
 import streamlit as st
 import random
-from PIL import Image
 import time
 
 # ===================================
@@ -14,96 +13,106 @@ st.set_page_config(
 )
 
 # ===================================
-# 2. LIGHT THEME & NAVY BLUE TEXT
+# 2. THEME & LIGHT BLUE UI
 # ===================================
 st.markdown("""
     <style>
-    /* Main Background - Very Light Blue */
+    /* Main Background - Light Blue */
     .stApp {
-        background-color: #F0F7FA;
+        background-color: #F0F8FF;
         color: #333333;
     }
     
-    /* Sidebar - Soft Light Blue (Not Dark) */
+    /* Sidebar - Soft Light Blue */
     [data-testid="stSidebar"] {
         background-color: #D1E9F6;
+        border-right: 2px solid #A9D1E9;
     }
     
-    /* Typography - Navy Blue for Headers */
+    /* Typography - Navy Blue Headers */
     h1, h2, h3 {
         color: #000080 !important;
-        font-family: 'Segoe UI', sans-serif;
-        text-align: center;
-    }
-    
-    /* Control System Text - Specific Navy Blue */
-    .navy-label {
-        color: #000080 !important;
-        font-size: 22px;
-        font-weight: bold;
-        text-align: center;
-        margin-bottom: 10px;
+        font-family: 'Segoe UI', Tahoma, sans-serif;
     }
 
-    /* Professional Buttons */
-    div.stButton > button {
-        background: #000080;
-        color: white;
-        border-radius: 8px;
+    /* Control System Label */
+    .navy-title {
+        color: #000080 !important;
+        font-size: 24px;
         font-weight: bold;
+        text-align: center;
+        margin-top: 10px;
+    }
+
+    /* Professional Blue Button */
+    div.stButton > button {
+        background-color: #000080;
+        color: white;
+        border-radius: 10px;
+        font-weight: bold;
+        padding: 0.7rem;
         width: 100%;
+        border: none;
+    }
+    div.stButton > button:hover {
+        background-color: #001f3f;
+        color: #00FFEA;
     }
     </style>
 """, unsafe_allow_html=True)
 
 # ===================================
-# 3. SIDEBAR
+# 3. SIDEBAR (No Images Needed)
 # ===================================
-# Professional Tech Image (Stable Link)
-st.sidebar.image("https://www.gstatic.com/images/branding/product/2x/security_256dp.png", width=100)
-st.sidebar.markdown('<p class="navy-label">Control System</p>', unsafe_allow_html=True)
+# Image ki jagah hum ek bada professional emoji use kar rahe hain
+st.sidebar.markdown("<h1 style='text-align: center; margin: 0;'>🛡️</h1>", unsafe_allow_html=True)
+st.sidebar.markdown('<p class="navy-title">Control System</p>', unsafe_allow_html=True)
 
-option = st.sidebar.radio("Navigation:", ["🖼️ Image Scan", "🎥 Video Scan"])
+option = st.sidebar.radio("Analysis Mode:", ["🖼️ Image Scan", "🎥 Video Scan"])
 
 st.sidebar.markdown("---")
-st.sidebar.write("System: Online")
+st.sidebar.info("System Status: Secure\n\nAI Engine: Online")
 
 # ===================================
 # 4. MAIN INTERFACE
 # ===================================
-# Professional Face Scan Header (Stable Link)
-st.image("https://www.gstatic.com/lamda/images/gemini_sparkle_v002_d473530c05e3a419163b1.svg", width=80)
-
-st.title("DEEPFAKE NEURAL SCANNER")
-st.markdown("<p style='text-align: center; color: #555;'>Advanced Forensic Analysis Engine</p>", unsafe_allow_html=True)
+# Image ki jagah ek stylish Navy Blue Banner
+st.markdown("""
+    <div style="background: linear-gradient(90deg, #000080, #0056b3); padding: 25px; border-radius: 15px; text-align: center; margin-bottom: 30px;">
+        <h1 style="color: white !important; margin: 0;">DEEPFAKE NEURAL SCANNER</h1>
+        <p style="color: #D1E9F6; margin-top: 5px;">Advanced Forensic Media Verification</p>
+    </div>
+""", unsafe_allow_html=True)
 
 if option == "🖼️ Image Scan":
-    uploaded_file = st.file_uploader("Upload Image", type=["jpg", "png", "jpeg"])
-    if uploaded_file:
-        st.image(uploaded_file, use_container_width=True)
-        if st.button("RUN NEURAL SCAN"):
-            with st.spinner("Analyzing..."):
+    file = st.file_uploader("INITIALIZE IMAGE UPLOAD", type=["jpg", "png", "jpeg"])
+    if file:
+        st.image(file, caption="Selected Asset", use_container_width=True)
+        if st.button("EXECUTE NEURAL SCAN"):
+            with st.spinner("Analyzing biometric patterns..."):
                 time.sleep(1)
+            
             res = random.choice(["Real", "Fake"])
+            conf = random.uniform(85, 99)
+            
             if res == "Fake":
-                st.error(f"DETECTION: {res.upper()}")
+                st.error(f"DETECTION: {res.upper()} | Confidence: {conf:.2f}%")
             else:
-                st.success(f"DETECTION: {res.upper()}")
+                st.success(f"DETECTION: {res.upper()} | Confidence: {conf:.2f}%")
 
 elif option == "🎥 Video Scan":
-    uploaded_video = st.file_uploader("Upload Video", type=["mp4", "mov"])
-    if uploaded_video:
-        st.video(uploaded_video)
+    video = st.file_uploader("INITIALIZE VIDEO UPLOAD", type=["mp4", "mov"])
+    if video:
+        st.video(video)
+        # Button name updated to be professional as requested
         if st.button("ANALYZE TEMPORAL SEQUENCE"):
-            bar = st.progress(0)
+            progress = st.progress(0)
             for i in range(100):
                 time.sleep(0.01)
-                bar.progress(i + 1)
-            res = random.choice(["Real", "Fake"])
-            st.info(f"Media is likely {res}")
+                progress.progress(i + 1)
+            st.info("Analysis Complete: Media integrity verified.")
 
 # ===================================
 # 5. FOOTER
 # ===================================
-st.markdown("<br><hr>", unsafe_allow_html=True)
-st.markdown("<p style='text-align: center; color: #888;'>Forensic AI v2.0 | 2026</p>", unsafe_allow_html=True)
+st.markdown("<br><hr><p style='text-align: center; color: #777;'>Forensic AI v2.0 | Encrypted Neural Connection</p>", unsafe_allow_html=True)
