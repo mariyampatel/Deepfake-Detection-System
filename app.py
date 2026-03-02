@@ -99,7 +99,7 @@ st.sidebar.markdown("<p style='color: #888; font-size: 0.8rem;'>System Status: A
 # 5. MAIN UI & HEADER IMAGE
 # ===================================
 # Adding a high-tech banner image at the top of the app
-st.image("C:/Users/DELL/Desktop/deepfake/56387.jpg", use_container_width=True)
+st.image("56387.jpg", use_container_width=True)
 
 st.title("DEEPFAKE NEURAL SCANNER")
 st.markdown("<p style='text-align: center; color: #a8b2d1; margin-bottom: 30px;'>Upload suspect media to our forensic neural network for authenticity verification.</p>", unsafe_allow_html=True)
@@ -193,4 +193,5 @@ elif option == "🎥 Video Scan":
 # ===================================
 st.markdown("<br><hr style='border-color: #1c2541;'>", unsafe_allow_html=True)
 st.markdown("<p style='text-align: center; color: #555;'>DEEPFAKE FORENSICS v2.0 | ENCRYPTED CONNECTION</p>", unsafe_allow_html=True)
+
 
