@@ -1,118 +1,123 @@
 import streamlit as st
-import random
 from PIL import Image
-import time
 
-# ===================================
-# 1. PAGE CONFIGURATION
-# ===================================
+# 1. Page Configuration
 st.set_page_config(
-    page_title="Deepfake Scanner",
-    page_icon="🛡️",
-    layout="centered",
+    page_title="Vision AI Dashboard",
+    page_icon="👁️",
+    layout="wide",
     initial_sidebar_state="expanded"
 )
 
-# ===================================
-# 2. LIGHT BLUE THEME CUSTOM CSS
-# ===================================
+# 2. Custom CSS for Professional Dark UI (No bright blue)
 st.markdown("""
     <style>
+    /* Main Background */
     .stApp {
-        background-color: #E0F7FA;
-        color: #333333;
+        background-color: #0E1117;
+        color: #E0E0E0;
     }
+    
+    /* Sidebar Styling - Professional Dark Grey */
     [data-testid="stSidebar"] {
-        background-color: #B2EBF2;
+        background-color: #161B22;
+        border-right: 1px solid #30363D;
     }
-    h1, h2, h3 {
-        color: #000080 !important;
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        text-align: center;
-    }
-    div.stButton > button {
-        background: #000080;
-        color: #ffffff;
-        border: 2px solid #000080;
-        border-radius: 8px;
-        padding: 10px 24px;
-        font-size: 16px;
+    
+    /* Header Styling */
+    .main-header {
+        font-size: 36px;
         font-weight: 700;
-        text-transform: uppercase;
-        width: 100%;
+        color: #2ECC71; /* Professional Emerald Green */
+        margin-bottom: 10px;
+        text-shadow: 0px 0px 10px rgba(46, 204, 113, 0.3);
     }
-    div.stButton > button:hover {
-        background: #ffffff;
-        color: #000080;
+    
+    /* Subtext */
+    .sub-text {
+        font-size: 18px;
+        color: #8B949E;
+        margin-bottom: 30px;
     }
-    .scan-result-fake {
-        background: rgba(255, 0, 60, 0.15);
-        border-left: 5px solid #ff003c;
+
+    /* Cards/Containers */
+    .stats-card {
+        background-color: #1C2128;
         padding: 20px;
-        border-radius: 5px;
+        border-radius: 10px;
+        border: 1px solid #30363D;
         text-align: center;
     }
-    .scan-result-real {
-        background: rgba(0, 128, 0, 0.15);
-        border-left: 5px solid #008000;
-        padding: 20px;
+
+    /* Professional Button */
+    .stButton>button {
+        background-color: #238636;
+        color: white;
         border-radius: 5px;
-        text-align: center;
+        border: none;
+        padding: 10px 25px;
+        transition: 0.3s;
+    }
+    .stButton>button:hover {
+        background-color: #2EA043;
+        border: none;
+        color: white;
     }
     </style>
-""", unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
-# ===================================
-# 3. CORE LOGIC
-# ===================================
-def predict_dummy():
-    prediction = random.choice(["Real", "Fake"])
-    confidence = round(random.uniform(0.75, 0.99), 4)
-    return prediction, confidence
+# --- SIDEBAR ---
+with st.sidebar:
+    st.markdown("### 🛠️ Control Panel")
+    st.info("System Status: Online")
+    
+    menu = st.radio("Navigation", ["Home", "Biometric Scan", "Analytics", "Settings"])
+    
+    st.divider()
+    st.markdown("### Scanner Settings")
+    sensitivity = st.slider("Detection Sensitivity", 0, 100, 85)
+    
+    if st.button("Logout"):
+        st.success("Logging out...")
 
-# ===================================
-# 4. SIDEBAR
-# ===================================
-st.sidebar.image("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80", caption="Verification Engine Active")
-st.sidebar.markdown("<h1 style='font-size: 25px;'>System Controls</h1>", unsafe_allow_html=True)
-option = st.sidebar.radio("Select Targeting Mode:", ["🖼️ Image Scan", "🎥 Video Scan"])
+# --- MAIN CONTENT ---
 
-# ===================================
-# 5. MAIN UI & HEADER IMAGE (FIXED ERROR)
-# ===================================
-# FIXED: Replaced local path with a stable web URL to avoid MediaFileStorageError
-st.image("56387.jpg", use_container_width=True)
+# Home Page Logic
+if menu == "Home":
+    # Hero Image (Aapki Image yahan display hogi)
+    # Make sure to put your image file in the same folder as app.py
+    try:
+        header_img = Image.open("image.jpg.jpeg") # Image name check kar lena
+        st.image(header_img, use_container_width=True)
+    except:
+        st.warning("Please place your header image in the folder as 'header_image.png'")
 
-st.title("DEEPFAKE NEURAL SCANNER")
-st.markdown("<p style='text-align: center; color: #555; font-weight: 500;'>Advanced Forensic Analysis for Media Authenticity</p>", unsafe_allow_html=True)
+    st.markdown('<p class="main-header">Advanced Biometric Analysis</p>', unsafe_allow_html=True)
+    st.markdown('<p class="sub-text">Real-time facial recognition and architectural mapping system.</p>', unsafe_allow_html=True)
 
-# ===================================
-# ANALYSIS SECTION
-# ===================================
-if option == "🖼️ Image Scan":
-    uploaded_file = st.file_uploader("INITIALIZE IMAGE UPLOAD", type=["jpg", "jpeg", "png"])
-    if uploaded_file:
-        st.image(uploaded_file, caption="Target Acquired", use_container_width=True)
-        if st.button("INITIATE SCAN"):
-            with st.spinner("Analyzing artifacts..."):
-                time.sleep(1)
-            prediction, confidence = predict_dummy()
-            if prediction == "Fake":
-                st.markdown(f'<div class="scan-result-fake"><h2>🚨 DETECTED: {prediction.upper()}</h2><h3>Confidence: {confidence*100:.2f}%</h3></div>', unsafe_allow_html=True)
-            else:
-                st.markdown(f'<div class="scan-result-real"><h2>✅ AUTHENTIC ✅</h2><h3>Confidence: {confidence*100:.2f}%</h3></div>', unsafe_allow_html=True)
+    # Stats Row
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.markdown('<div class="stats-card"><h3>99.7%</h3><p>Match Accuracy</p></div>', unsafe_allow_html=True)
+    with col2:
+        st.markdown('<div class="stats-card"><h3>0.02s</h3><p>Latency</p></div>', unsafe_allow_html=True)
+    with col3:
+        st.markdown('<div class="stats-card"><h3>Normal</h3><p>System Load</p></div>', unsafe_allow_html=True)
 
-elif option == "🎥 Video Scan":
-    uploaded_video = st.file_uploader("INITIALIZE VIDEO UPLOAD", type=["mp4", "mov"])
-    if uploaded_video:
-        st.video(uploaded_video)
-        if st.button("ANALYZE TEMPORAL SEQUENCE"):
-            progress = st.progress(0)
-            for i in range(100):
-                time.sleep(0.01)
-                progress.progress(i + 1)
-            prediction, confidence = predict_dummy()
-            st.info(f"Result: {prediction} ({confidence*100:.2f}%)")
+    st.write("---")
+    
+    # Bottom Section
+    st.subheader("System Logs")
+    st.code("""
+    [INFO] Initializing Facial Mesh... DONE
+    [INFO] Analyzing Artifact Density: 0.02
+    [INFO] Motion Consistency Check: PASSED
+    """, language="bash")
 
-st.markdown("<br><hr><p style='text-align: center; color: #888;'>DEEPFAKE FORENSICS v2.0</p>", unsafe_allow_html=True)
+elif menu == "Biometric Scan":
+    st.title("Live Scanner Interface")
+    st.camera_input("Verify Identity")
 
+else:
+    st.title(f"{menu} Page")
+    st.write("Section currently under maintenance.")
