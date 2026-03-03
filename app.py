@@ -100,7 +100,7 @@ st.markdown("""
 
 # --- SIDEBAR --- (Keeping it exactly as original)
 with st.sidebar:
-    st.image("56387", width=100)
+    st.image("56387.jpg", width=100)
     st.markdown("## Navigation 🐶")
     
     menu = st.radio("Go to", ["Home", "Scan Profile", "Database", "Analytics", "Settings"])
@@ -192,3 +192,4 @@ else:
     # Handle other pages as they were, but maybe link them better
     st.title(f"{menu} Page")
     st.write("This section is under development.")
+
