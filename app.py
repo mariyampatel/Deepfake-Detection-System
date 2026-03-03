@@ -81,7 +81,7 @@ option = st.sidebar.radio("Select Targeting Mode:", ["🖼️ Image Scan", "🎥
 # 5. MAIN UI & HEADER IMAGE (FIXED ERROR)
 # ===================================
 # FIXED: Replaced local path with a stable web URL to avoid MediaFileStorageError
-st.image("https://images.unsplash.com/photo-1557853113-bbd49242d54a?q=80&w=1200&auto=format&fit=crop", use_container_width=True)
+st.image("56387.jpg", use_container_width=True)
 
 st.title("DEEPFAKE NEURAL SCANNER")
 st.markdown("<p style='text-align: center; color: #555; font-weight: 500;'>Advanced Forensic Analysis for Media Authenticity</p>", unsafe_allow_html=True)
@@ -115,3 +115,4 @@ elif option == "🎥 Video Scan":
             st.info(f"Result: {prediction} ({confidence*100:.2f}%)")
 
 st.markdown("<br><hr><p style='text-align: center; color: #888;'>DEEPFAKE FORENSICS v2.0</p>", unsafe_allow_html=True)
+
