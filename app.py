@@ -47,7 +47,7 @@ st.markdown("""
         background: linear-gradient(to right, #1E3A8A, #2563EB, #00BFA6);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
-        font-size: 80px; /* Kept large as requested */
+        font-size: 80px; 
         font-weight: 900;
         text-align: center;
         letter-spacing: 2px;
@@ -66,14 +66,15 @@ st.markdown("""
         font-weight: 600;
     }
 
-    /* MAIN INTERFACE - RESIZED IMAGE (Kept small) */
+    /* MAIN INTERFACE - RESIZED IMAGE (Made even smaller) */
     .header-img-container {
         display: flex;
         justify-content: center;
         margin-top: 10px;
     }
     .header-img-container img {
-        max-width: 15% !important; 
+        max-width: 8% !important; /* Reduced from 15% to 8% */
+        min-width: 80px !important; /* Ensures it doesn't get too small on phones */
         border-radius: 12px;
         border: 2px solid #2563EB;
         box-shadow: 0 4px 15px rgba(37, 99, 235, 0.1);
@@ -84,7 +85,7 @@ st.markdown("""
         padding: 30px;
         border-radius: 15px;
         text-align: center;
-        background: rgba(237, 244, 255, 0.7); /* Soft transparent blue-gray, no pure white */
+        background: rgba(237, 244, 255, 0.7); 
         backdrop-filter: blur(12px);
         -webkit-backdrop-filter: blur(12px);
         border: 1px solid rgba(37, 99, 235, 0.2);
@@ -109,12 +110,12 @@ st.markdown("""
 
     /* INPUT ACCENTS (Uploader & Status Bar) */
     .stFileUploader label { color: #1E3A8A !important; font-weight: 700; }
-    .stProgress > div > div > div > div { background-color: #00BFA6; } /* Teal progress bar */
+    .stProgress > div > div > div > div { background-color: #00BFA6; } 
     
     /* PREMIUM BUTTON STYLING */
     div.stButton > button {
         background: linear-gradient(135deg, #2563EB 0%, #1E3A8A 100%);
-        color: #F4F7FB !important; /* Off-white/light blue text */
+        color: #F4F7FB !important; 
         border: none;
         border-radius: 8px;
         padding: 12px 20px;
@@ -172,45 +173,4 @@ st.markdown('<p class="hero-subtitle">ADVANCED DEEPFAKE DETECTION</p>', unsafe_a
 # Reusable Result Function (Updated colors to requested theme)
 def show_final_result(res, conf):
     # Updated to requested Theme colors: Danger (#EF4444) and Success (#10B981)
-    color = "#EF4444" if res == "Fake" else "#10B981"
-    icon = "🚨" if res == "Fake" else "✅"
-    
-    st.markdown(f'''
-        <div class="result-box" style="border-top: 4px solid {color};">
-            <p class="result-text" style="color: {color} !important;">{icon} {res.upper()}</p>
-            <p class="confidence-text">Forensic Confidence Check: {conf*100:.2f}%</p>
-        </div>
-    ''', unsafe_allow_html=True)
-
-container = st.container()
-
-with container:
-    if option == "🖼️ Image Scan":
-        uploaded_file = st.file_uploader("DROP IMAGE FILE HERE FOR ARTIFACT ANALYSIS", type=["jpg", "png", "jpeg"])
-        if uploaded_file:
-            c1, c2 = st.columns(2)
-            c1.image(uploaded_file, caption="Target Acquired", use_container_width=True)
-            with c2:
-                st.markdown("<h3 style='color: #1E3A8A;'>Analysis Terminal</h3>", unsafe_allow_html=True)
-                if st.button("EXECUTE NEURAL SCAN"):
-                    progress_text = st.empty()
-                    with st.spinner("Analyzing frequency artifacts..."):
-                        progress_text.markdown("<span style='color: #2563EB; font-weight: bold;'>🧬 Frequency Check: COMPLETE</span>", unsafe_allow_html=True)
-                        time.sleep(1)
-                    prediction, confidence = predict_dummy()
-                    show_final_result(prediction, confidence)
-
-    elif option == "🎥 Video Scan":
-        uploaded_video = st.file_uploader("UPLOAD MULTI-FRAME SEQUENCE (MP4)", type=["mp4", "mov"])
-        if uploaded_video:
-            st.video(uploaded_video)
-            if st.button("RUN TEMPORAL ANALYSIS"):
-                progress_bar = st.progress(0)
-                for i in range(100):
-                    time.sleep(0.01)
-                    progress_bar.progress(i + 1)
-                
-                prediction, confidence = predict_dummy()
-                show_final_result(prediction, confidence)
-
-st.markdown("<br><br><p style='text-align:center; color:#94A3B8; font-weight: 500;'>SECURE CHANNEL | ENCRYPTION ACTIVE</p>", unsafe_allow_html=True)
+    color = "#EF4444" if
