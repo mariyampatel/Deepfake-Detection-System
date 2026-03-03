@@ -25,7 +25,7 @@ st.markdown("""
     
     /* SIDEBAR - Full Visibility Fix */
     [data-testid="stSidebar"] {
-        background-color: #0E1217 !important;
+        background-color: #312E81 !important;
         border-right: 2px solid #00FF7F;
     }
     [data-testid="stSidebar"] * { 
@@ -152,5 +152,6 @@ elif option == "VIDEO SCAN":
             show_final_result(res, conf)
 
 st.markdown("<br><p style='text-align:center; opacity:0.5;'>SYSTEM V4.0.2 | SECURE PROTOCOL</p>", unsafe_allow_html=True)
+
 
 
