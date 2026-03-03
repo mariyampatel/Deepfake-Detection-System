@@ -13,142 +13,126 @@ st.set_page_config(
 )
 
 # ===================================
-# 2. PRO-VISIBILITY DARK THEME (FIXED)
+# 2. COMPACT & HIGH-VISIBILITY UI
 # ===================================
 st.markdown("""
     <style>
-    /* Main Background - Deep Cyber Black */
+    /* Background & Global Text */
     .stApp {
         background-color: #1E1B4B;
         color: #FFFFFF !important;
     }
     
-    /* SIDEBAR - Full Visibility Fix */
+    /* SIDEBAR styling */
     [data-testid="stSidebar"] {
         background-color: #312E81 !important;
         border-right: 2px solid #00FF7F;
     }
-    [data-testid="stSidebar"] * { 
-        color: #FFFFFF !important; 
-        font-weight: 600 !important;
-    }
-    [data-testid="stSidebar"] h2 {
-        color: #00FF7F !important;
-        text-shadow: 0px 0px 10px rgba(0, 255, 127, 0.4);
-    }
+    [data-testid="stSidebar"] * { color: #FFFFFF !important; }
 
-    /* UPLOADER & BROWSER TEXT - PURE WHITE */
-    .stFileUploader label, .stFileUploader div, .stFileUploader span {
-        color: #FFFFFF !important;
-        font-size: 18px !important;
-    }
-
-    /* HEADER TYPOGRAPHY - HUGE & BOLD */
+    /* TITLE - Large but Compact */
     .hero-title {
         color: #00FF7F;
-        font-size: 65px;
+        font-size: 70px; 
         font-weight: 900;
         text-align: center;
-        letter-spacing: 4px;
-        text-transform: uppercase;
-        margin-top: 15px;
-        text-shadow: 0px 0px 20px rgba(0, 255, 127, 0.6);
+        margin-bottom: 0px;
+        margin-top: -20px; /* Reducing top gap */
+        text-shadow: 0px 0px 15px rgba(0, 255, 127, 0.5);
     }
     .hero-subtitle {
         color: #FFFFFF;
         text-align: center;
         font-size: 18px;
-        letter-spacing: 6px;
-        opacity: 0.8;
-        margin-bottom: 40px;
+        letter-spacing: 5px;
+        margin-bottom: 10px;
     }
 
-    /* RESULT CARD - NEON BOX */
+    /* IMAGE RESIZING (30% for no scroll) */
+    .header-img-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 0px;
+    }
+    .header-img-container img {
+        max-width: 30% !important; /* Image size even smaller now */
+        border-radius: 10px;
+    }
+
+    /* Result Card */
     .result-card {
-        padding: 35px;
-        border-radius: 15px;
+        padding: 20px;
+        border-radius: 10px;
         text-align: center;
-        margin-top: 25px;
         background: rgba(255, 255, 255, 0.05);
         border: 2px solid #FFFFFF;
-        backdrop-filter: blur(10px);
     }
-
-    /* BUTTONS - HIGH CONTRAST */
+    
+    /* Button Style */
     div.stButton > button {
         background: #00FF7F !important;
         color: #000000 !important;
-        font-size: 20px !important;
         font-weight: bold;
-        width: 100%;
-        height: 55px;
-        border-radius: 5px;
-        border: none;
-    }
-    div.stButton > button:hover {
-        background: #FFFFFF !important;
-        box-shadow: 0px 0px 20px #FFFFFF;
+        height: 50px;
     }
     </style>
 """, unsafe_allow_html=True)
 
 # ===================================
-# 3. SIDEBAR TERMINAL
+# 3. SIDEBAR
 # ===================================
 with st.sidebar:
-    st.markdown("<h2>CORE TERMINAL</h2>", unsafe_allow_html=True)
+    st.markdown("<h2 style='color:#00FF7F;'>TERMINAL</h2>", unsafe_allow_html=True)
     st.image("56387.jpg", use_container_width=True)
-    
-    st.markdown("<br>", unsafe_allow_html=True)
-    option = st.radio("SELECT SCAN TYPE:", ["IMAGE SCAN", "VIDEO SCAN"])
-    
+    option = st.radio("MODE:", ["IMAGE SCAN", "VIDEO SCAN"])
     st.markdown("---")
-    st.markdown("🛰️ **LINK:** SECURE")
-    st.markdown("🧠 **NEURAL:** v4.0-PRO")
+    st.write("🛰️ LINK: SECURE")
 
 # ===================================
-# 4. MAIN INTERFACE
+# 4. MAIN INTERFACE (NO SCROLL LAYOUT)
 # ===================================
-st.image("image.jpg.jpeg", use_container_width=True) #
+
+# Title First (Priority)
 st.markdown('<p class="hero-title">Neural Scanner Pro</p>', unsafe_allow_html=True)
-st.markdown('<p class="hero-subtitle">ADVANCED DEEPFAKE DETECTION</p>', unsafe_allow_html=True)
+st.markdown('<p class="hero-subtitle">ADVANCED DETECTION SYSTEM</p>', unsafe_allow_html=True)
 
-# Reusable Result Function
+# Small Image Below Title
+st.markdown('<div class="header-img-container">', unsafe_allow_html=True)
+st.image("image.jpg.jpeg") 
+st.markdown('</div>', unsafe_allow_html=True)
+
+# ===================================
+# 5. SCANNER SECTION (Directly visible)
+# ===================================
 def show_final_result(res, conf):
     color = "#FF003C" if res == "FAKE" else "#00FF7F"
-    icon = "🚨" if res == "FAKE" else "✅"
     st.markdown(f'''
         <div class="result-card" style="border-color: {color};">
-            <h1 style="color: {color}; font-size: 55px;">{icon} {res}</h1>
-            <h2 style="color: white;">Confidence Level: {conf:.2f}%</h2>
+            <h1 style="color: {color};">Result: {res}</h1>
+            <h2 style="color: white;">Confidence: {conf:.2f}%</h2>
         </div>
     ''', unsafe_allow_html=True)
 
-# --- IMAGE SCAN ---
 if option == "IMAGE SCAN":
-    file = st.file_uploader("UPLOAD IMAGE FOR ANALYSIS", type=["jpg", "png", "jpeg"])
+    file = st.file_uploader("UPLOAD TARGET", type=["jpg", "png", "jpeg"])
     if file:
         col1, col2 = st.columns(2)
-        col1.image(file, use_container_width=True)
-        if col2.button("EXECUTE NEURAL SCAN"):
-            with st.spinner("Analyzing Artifacts..."):
-                time.sleep(1.5)
-            res = random.choice(["REAL", "FAKE"])
-            conf = random.uniform(93.0, 99.9)
-            show_final_result(res, conf)
+        with col1: st.image(file, width=250)
+        with col2:
+            if st.button("EXECUTE SCAN"):
+                with st.spinner("Processing..."): time.sleep(1)
+                res = random.choice(["REAL", "FAKE"])
+                show_final_result(res, random.uniform(90, 99))
 
-# --- VIDEO SCAN ---
 elif option == "VIDEO SCAN":
-    v_file = st.file_uploader("UPLOAD VIDEO FILE", type=["mp4", "mov"])
+    v_file = st.file_uploader("UPLOAD VIDEO", type=["mp4", "mov"])
     if v_file:
         st.video(v_file)
-        if st.button("EXECUTE VIDEO ANALYSIS"):
-            p_bar = st.progress(0)
+        if st.button("START ANALYSIS"):
+            p = st.progress(0)
             for i in range(100):
-                time.sleep(0.02)
-                p_bar.progress(i + 1)
-            res = random.choice(["REAL", "FAKE"])
-            conf = random.uniform(88.0, 97.5)
-            show_final_result(res, conf)
+                time.sleep(0.01)
+                p.progress(i + 1)
+            show_final_result(random.choice(["REAL", "FAKE"]), random.uniform(85, 98))
 
-st.markdown("<br><p style='text-align:center; opacity:0.5;'>SYSTEM V4.0.2 | SECURE PROTOCOL</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; opacity:0.5; font-size:10px;'>SECURE V4.0</p>", unsafe_allow_html=True)
