@@ -1,195 +1,171 @@
 import streamlit as st
+import random
 from PIL import Image
+import time
+import base64
 
-# 1. Page Configuration (Keep original icon)
+# ===================================
+# 1. PAGE CONFIGURATION
+# ===================================
 st.set_page_config(
-    page_title="AI Project Dashboard",
-    page_icon="🐶",  # Keep the 'dogy' icon
-    layout="wide"
+    page_title="Deepfake Neural Scanner",
+    page_icon="🛡️",
+    layout="wide",
+    initial_sidebar_state="expanded"
 )
 
-# 2. Updated CSS: Integrating the Face-Scan Image as a Header
+# ================= ==================
+# 2. NEON CYBER-DARK THEME (EYE-FRIENDLY)
+# ===================================
 st.markdown("""
     <style>
-    /* Main Background */
+    /* Main Background - Deep Charcoal for no eye strain */
     .stApp {
-        background-color: #0E1117;
-        color: #FFFFFF;
-    }
-
-    /* Keep Original Sidebar Colors */
-    [data-testid="stSidebar"] {
-        background-color: #1a1c24;
-    }
-    
-    /* 1. KEY CHANGE: Dynamic Header Section using the Image as Background */
-    #face-mesh-header {
-        position: relative;
-        overflow: hidden;
-        border-radius: 10px;
-        border: 1px solid #30363D;
-        margin-bottom: 25px;
-        background-color: #1C2128;
-    }
-    
-    #face-mesh-image-overlay {
-        width: 100%;
-        height: auto;
-        opacity: 0.2; /* Fades image into background */
-        object-fit: cover;
-    }
-    
-    #face-mesh-content {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
+        background-color: #0B0E14;
         color: #E0E0E0;
-        text-align: center;
-        padding: 20px;
     }
     
-    /* Title with Soft Green Glow to match image mesh */
-    #face-mesh-content h1 {
-        font-size: 42px;
-        color: #00FF7F; /* Spring Green */
-        margin-top: 0px;
-        margin-bottom: 0px;
-        font-weight: 700;
-        text-shadow: 0px 0px 10px rgba(0, 255, 127, 0.4);
-    }
-    
-    /* Data Points in Header using image color accents */
-    .data-point {
-        color: #00FF7F;
-        font-weight: bold;
+    /* Sidebar - Professional Dark Grey */
+    [data-testid="stSidebar"] {
+        background-color: #12161D;
+        border-right: 1px solid #1E2530;
     }
 
-    /* 2. Color Matching Cards: Using the soft gray/blue from the original */
-    .dashboard-card {
-        background-color: #262933; /* Soft gray/blue from original theme */
-        padding: 20px;
+    /* Titles - Matching the Neon Green from your image */
+    h1, h2, h3 {
+        color: #00FF7F !important; /* Spring Green */
+        font-family: 'Courier New', Courier, monospace;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        text-shadow: 0px 0px 10px rgba(0, 255, 127, 0.3);
+    }
+
+    /* Professional Glassmorphism Cards */
+    .stFileUploader, .stMarkdown, div[data-testid="stVerticalBlock"] > div {
         border-radius: 10px;
-        border: 1px solid #30363D;
     }
-    
-    /* Use original colors for normal text in cards */
-    .dashboard-card h3 {
-        color: #FFFFFF !important;
+
+    /* Custom Scan Button - Matrix Style */
+    div.stButton > button {
+        background: transparent;
+        color: #00FF7F;
+        border: 2px solid #00FF7F;
+        border-radius: 4px;
+        padding: 12px 20px;
+        font-weight: 700;
+        transition: 0.3s;
+        width: 100%;
+        box-shadow: 0px 0px 15px rgba(0, 255, 127, 0.1);
     }
-    .dashboard-card p {
-        color: #8B949E !important;
+    div.stButton > button:hover {
+        background: #00FF7F;
+        color: #000000;
+        box-shadow: 0px 0px 25px rgba(0, 255, 127, 0.4);
     }
-    
-    /* Professional Blue for interactive elements - non-chubne wala */
-    .stButton>button {
-        background-color: #1D4ED8; 
-        color: white;
+
+    /* Status Alerts */
+    .scan-result-fake {
+        background: rgba(255, 46, 99, 0.1);
+        border: 1px solid #FF2E63;
+        padding: 20px;
+        border-radius: 8px;
+        color: #FF2E63;
+        text-align: center;
     }
-    .stButton>button:hover {
-        background-color: #2563EB;
-        color: white;
+    .scan-result-real {
+        background: rgba(0, 255, 127, 0.1);
+        border: 1px solid #00FF7F;
+        padding: 20px;
+        border-radius: 8px;
+        color: #00FF7F;
+        text-align: center;
+    }
+
+    /* Smooth Progress Bar */
+    .stProgress > div > div > div > div {
+        background-color: #00FF7F;
     }
     </style>
-    """, unsafe_allow_html=True)
+""", unsafe_allow_html=True)
 
-# --- SIDEBAR --- (Keeping it exactly as original)
+# ===================================
+# 3. CORE LOGIC (Content Unchanged)
+# ===================================
+def predict_dummy():
+    prediction = random.choice(["Real", "Fake"])
+    confidence = round(random.uniform(0.75, 0.99), 4)
+    return prediction, confidence
+
+# ===================================
+# 4. SIDEBAR (Professional Layout)
+# ===================================
 with st.sidebar:
-    st.image("56387.jpg", width=100)
-    st.markdown("## Navigation 🐶")
+    st.markdown("<h2 style='text-align: left; font-size: 22px;'>SYSTEM TERMINAL</h2>", unsafe_allow_html=True)
+    st.image("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80", caption="Neural Core Active")
     
-    menu = st.radio("Go to", ["Home", "Scan Profile", "Database", "Analytics", "Settings"])
+    st.markdown("---")
+    option = st.radio("TARGETING MODE:", ["🖼️ Image Scan", "🎥 Video Scan"])
     
-    st.divider()
-    st.subheader("System Controls")
-    scan_btn = st.button("Start New Scan")
-    if scan_btn:
-        st.success("Starting scan...")
-    
-    st.markdown("### Database Status")
-    st.metric(label="Profiles Stored", value="1,245", delta="+5%")
-    
-    st.error("Urgent Security Alert!")
+    st.markdown("---")
+    st.info("Artifact Density: 0.02\n\nMotion Check: Normal")
 
-# --- MAIN CONTENT ---
+# ===================================
+# 5. HOME PAGE & HEADER (Using Your Image Style)
+# ===================================
 
-# Page Logic
-if menu == "Home":
+# Hero Header Section
+col1, col2, col3 = st.columns([1, 6, 1])
+with col2:
+    # Aapki provided image ko yahan display kar rahe hain header ki tarah
+    # Note: Make sure image file is in same folder or use URL
+    st.image("image.jpg.jpeg", use_container_width=True) 
     
-    # --- DYNAMIC HEADER ---
-    # Try to load the provided image. Set image_path to where you saved it.
-    image_path = "header_image.png" 
-    
-    st.markdown('<div id="face-mesh-header">', unsafe_allow_html=True)
-    
-    try:
-        # Load the image and get base64 to embed it
-        import base64
-        with open(image_path, "rb") as image_file:
-            encoded_image = base64.b64encode(image_file.read()).decode()
+    st.title("DEEPFAKE NEURAL SCANNER")
+    st.markdown("<p style='text-align: center; color: #888; margin-top: -20px;'>FORENSIC ANALYSIS ENGINE V2.0</p>", unsafe_allow_html=True)
+
+st.markdown("<br>", unsafe_allow_html=True)
+
+# ===================================
+# 6. ANALYSIS SECTION
+# ===================================
+container = st.container()
+
+with container:
+    if option == "🖼️ Image Scan":
+        uploaded_file = st.file_uploader("UPLOAD TARGET IMAGE FOR ARTIFACT ANALYSIS", type=["jpg", "jpeg", "png"])
         
-        st.markdown(f'<img id="face-mesh-image-overlay" src="data:image/png;base64,{encoded_image}">', unsafe_allow_html=True)
-    except:
-        # Placeholder or nothing if image fails
-        st.markdown('<div id="face-mesh-image-overlay" style="min-height:200px"></div>', unsafe_allow_html=True)
-        st.warning(f"Please place your image '{image_path}' in the same folder as app.py")
+        if uploaded_file:
+            c1, c2 = st.columns([1, 1])
+            with c1:
+                st.image(uploaded_file, caption="Target Acquired", use_container_width=True)
+            with c2:
+                st.markdown("<h3 style='text-align: left;'>Analysis Terminal</h3>", unsafe_allow_html=True)
+                st.write("Initializing facial mesh...")
+                if st.button("INITIATE SCAN"):
+                    with st.spinner("Decoding pixels..."):
+                        time.sleep(1.5)
+                    prediction, confidence = predict_dummy()
+                    
+                    if prediction == "Fake":
+                        st.markdown(f'<div class="scan-result-fake"><h2>🚨 {prediction.upper()} DETECTED</h2><p>Confidence: {confidence*100:.2f}%</p></div>', unsafe_allow_html=True)
+                    else:
+                        st.markdown(f'<div class="scan-result-real"><h2>✅ AUTHENTIC</h2><p>Confidence: {confidence*100:.2f}%</p></div>', unsafe_allow_html=True)
 
-    # Content overlaid on top of the image
-    st.markdown('<div id="face-mesh-content"><h1>BIOMETRIC COMMAND</h1>', unsafe_allow_html=True)
-    st.markdown(f'<h3>Active Analysis: Match <span class="data-point">99.7%</span> | Artifacts: <span class="data-point">0.02</span></h3>', unsafe_allow_html=True)
-    st.markdown('</div></div>', unsafe_allow_html=True)
-    
-    st.divider()
-    
-    # --- DASHBOARD LAYOUT (Keeping original style and content) ---
-    st.subheader("Project Overview")
-    
-    # Original-style columns
-    col1, col2, col3 = st.columns(3)
-    
-    with col1:
-        st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
-        st.markdown("### Profile Status")
-        st.write("Current analysis of 1,245 profiles in database.")
-        st.write("**Latest Scan:** John Doe | ✅ Matched")
-        st.markdown('</div>', unsafe_allow_html=True)
-        
-    with col2:
-        st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
-        st.markdown("### Database Info")
-        st.write("AI model version: **VisionAI v2.1**")
-        st.write("Database Integrity: **Good**")
-        st.write("Last updated: 2 hours ago")
-        st.markdown('</div>', unsafe_allow_html=True)
-        
-    with col3:
-        st.markdown('<div class="dashboard-card">', unsafe_allow_html=True)
-        st.markdown("### Model Metrics")
-        st.write("Face Match Latency: **0.02s**")
-        st.write("Face Detection Accuracy: **99.7%**")
-        st.markdown('</div>', unsafe_allow_html=True)
-    
-    st.write("---")
-    
-    st.subheader("Recent System Logs")
-    # Original style logs
-    st.code("""
-    [INFO] 14:32:01 Initializing Facial Mesh... DONE
-    [INFO] 14:32:02 Artifact Density: 0.02
-    [INFO] 14:32:02 Motion Consistency: NORMAL
-    [INFO] 14:32:03 Matching against Database: DONE (Profile #0012)
-    [SUCCESS] 14:32:03 Profile John Doe confirmed. Latency: 0.02s
-    """, language="bash")
-    
-    st.button("Request New Profile Authorization")
+    elif option == "🎥 Video Scan":
+        uploaded_video = st.file_uploader("UPLOAD VIDEO SEQUENCE", type=["mp4", "mov"])
+        if uploaded_video:
+            st.video(uploaded_video)
+            if st.button("ANALYZE TEMPORAL SEQUENCE"):
+                progress = st.progress(0)
+                for i in range(100):
+                    time.sleep(0.02)
+                    progress.progress(i + 1)
+                prediction, confidence = predict_dummy()
+                
+                if prediction == "Fake":
+                    st.error(f"ALERT: Temporal anomalies detected! Result: {prediction} ({confidence*100:.2f}%)")
+                else:
+                    st.success(f"SUCCESS: Pattern consistency verified. Result: {prediction} ({confidence*100:.2f}%)")
 
-else:
-    # Handle other pages as they were, but maybe link them better
-    st.title(f"{menu} Page")
-    st.write("This section is under development.")
-
+# Footer
+st.markdown("<br><br><p style='text-align: center; color: #444; font-size: 12px;'>SECURITY LEVEL: ALPHA-ST-7 | ENCRYPTION: ACTIVE</p>", unsafe_allow_html=True)
