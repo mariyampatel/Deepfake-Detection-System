@@ -79,7 +79,7 @@ st.markdown('<h1 class="neon-title">Deepfake Neural Scanner</h1>', unsafe_allow_
 col1, col2, col3 = st.columns([1, 1, 1])
 with col2:
     # IMPORTANT: Replace "your_image.png" with the actual name of your image file
-    # st.image("your_image.png", use_column_width=True) 
+    # st.image("image.jpp.jpeg", use_column_width=True) 
     st.markdown("<p style='text-align: center; color: gray;'>[Your Small Image Here]</p>", unsafe_allow_html=True)
 
 st.markdown("---")
@@ -98,3 +98,4 @@ if uploaded_file is not None:
         st.info(f"Anomaly detected: 2% | Authenticity Confidence: {confidence_threshold * 100}%")
 else:
     st.markdown("<h4 style='text-align: center;'>👈 Please upload a file from the Control Panel to begin.</h4>", unsafe_allow_html=True)
+
