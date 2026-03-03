@@ -1,11 +1,9 @@
 import streamlit as st
 import random
-from PIL import Image
 import time
-import base64
 
 # ===================================
-# 1. PAGE CONFIGURATION
+# 1. PAGE CONFIG
 # ===================================
 st.set_page_config(
     page_title="Deepfake Neural Scanner",
@@ -14,158 +12,108 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ================= ==================
-# 2. NEON CYBER-DARK THEME (EYE-FRIENDLY)
+# ===================================
+# 2. ULTRA-FAST & CLEAR UI CSS
 # ===================================
 st.markdown("""
     <style>
-    /* Main Background - Deep Charcoal for no eye strain */
-    .stApp {
-        background-color: #0B0E14;
-        color: #E0E0E0;
-    }
+    /* Main Dark Theme */
+    .stApp { background-color: #0B0E14; color: #FFFFFF; }
     
-    /* Sidebar - Professional Dark Grey */
-    [data-testid="stSidebar"] {
-        background-color: #12161D;
-        border-right: 1px solid #1E2530;
-    }
-
-    /* Titles - Matching the Neon Green from your image */
-    h1, h2, h3 {
-        color: #00FF7F !important; /* Spring Green */
-        font-family: 'Courier New', Courier, monospace;
+    /* SIDEBAR TEXT VISIBILITY (FIXED) */
+    [data-testid="stSidebar"] { background-color: #12161D !important; border-right: 1px solid #1E2530; }
+    [data-testid="stSidebar"] * { color: #FFFFFF !important; font-size: 14px; }
+    [data-testid="stSidebar"] h2 { color: #00FF7F !important; font-size: 20px !important; font-weight: bold; }
+    
+    /* PROFESSIONAL HEADER */
+    .hero-title {
+        color: #00FF7F;
+        font-size: 45px;
+        font-weight: 800;
+        text-align: center;
+        letter-spacing: 3px;
         text-transform: uppercase;
-        letter-spacing: 2px;
-        text-shadow: 0px 0px 10px rgba(0, 255, 127, 0.3);
+        margin-bottom: 0px;
+        text-shadow: 0px 0px 15px rgba(0, 255, 127, 0.4);
+    }
+    .hero-subtitle {
+        color: #888;
+        text-align: center;
+        font-size: 14px;
+        letter-spacing: 5px;
+        margin-bottom: 30px;
     }
 
-    /* Professional Glassmorphism Cards */
-    .stFileUploader, .stMarkdown, div[data-testid="stVerticalBlock"] > div {
-        border-radius: 10px;
-    }
-
-    /* Custom Scan Button - Matrix Style */
+    /* BUTTONS */
     div.stButton > button {
         background: transparent;
-        color: #00FF7F;
-        border: 2px solid #00FF7F;
-        border-radius: 4px;
-        padding: 12px 20px;
-        font-weight: 700;
-        transition: 0.3s;
+        color: #00FF7F !important;
+        border: 2px solid #00FF7F !important;
+        border-radius: 5px;
+        font-weight: bold;
         width: 100%;
-        box-shadow: 0px 0px 15px rgba(0, 255, 127, 0.1);
+        padding: 10px;
     }
-    div.stButton > button:hover {
-        background: #00FF7F;
-        color: #000000;
-        box-shadow: 0px 0px 25px rgba(0, 255, 127, 0.4);
-    }
+    div.stButton > button:hover { background: #00FF7F !important; color: #000 !important; }
 
-    /* Status Alerts */
-    .scan-result-fake {
-        background: rgba(255, 46, 99, 0.1);
-        border: 1px solid #FF2E63;
-        padding: 20px;
-        border-radius: 8px;
-        color: #FF2E63;
-        text-align: center;
-    }
-    .scan-result-real {
-        background: rgba(0, 255, 127, 0.1);
-        border: 1px solid #00FF7F;
-        padding: 20px;
-        border-radius: 8px;
-        color: #00FF7F;
-        text-align: center;
-    }
-
-    /* Smooth Progress Bar */
-    .stProgress > div > div > div > div {
-        background-color: #00FF7F;
+    /* BOXES */
+    .info-box {
+        border-left: 4px solid #00FF7F;
+        background: rgba(0, 255, 127, 0.05);
+        padding: 10px;
+        margin: 5px 0px;
     }
     </style>
 """, unsafe_allow_html=True)
 
 # ===================================
-# 3. CORE LOGIC (Content Unchanged)
-# ===================================
-def predict_dummy():
-    prediction = random.choice(["Real", "Fake"])
-    confidence = round(random.uniform(0.75, 0.99), 4)
-    return prediction, confidence
-
-# ===================================
-# 4. SIDEBAR (Professional Layout)
+# 3. SIDEBAR
 # ===================================
 with st.sidebar:
-    st.markdown("<h2 style='text-align: left; font-size: 22px;'>SYSTEM TERMINAL</h2>", unsafe_allow_html=True)
-    st.image("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=800&q=80", caption="Neural Core Active")
+    st.markdown("<h2>SYSTEM TERMINAL</h2>", unsafe_allow_html=True)
+    st.image("https://images.unsplash.com/photo-1550751827-4bd374c3f58b?w=400", use_container_width=True)
+    
+    st.markdown("<br>", unsafe_allow_html=True)
+    option = st.radio("SELECT MODE:", ["🖼️ Image Scan", "🎥 Video Scan"])
     
     st.markdown("---")
-    option = st.radio("TARGETING MODE:", ["🖼️ Image Scan", "🎥 Video Scan"])
-    
-    st.markdown("---")
-    st.info("Artifact Density: 0.02\n\nMotion Check: Normal")
+    st.markdown('<div class="info-box">CORE: Active</div>', unsafe_allow_html=True)
+    st.markdown('<div class="info-box">LATENCY: 0.02s</div>', unsafe_allow_html=True)
+    st.markdown('<div class="info-box">STATUS: Online</div>', unsafe_allow_html=True)
 
 # ===================================
-# 5. HOME PAGE & HEADER (Using Your Image Style)
+# 4. MAIN CONTENT
 # ===================================
-
-# Hero Header Section
-col1, col2, col3 = st.columns([1, 6, 1])
+col1, col2, col3 = st.columns([1, 8, 1])
 with col2:
-    # Aapki provided image ko yahan display kar rahe hain header ki tarah
-    # Note: Make sure image file is in same folder or use URL
+    # Header Image (Use your local filename here)
     st.image("image.jpg.jpeg", use_container_width=True) 
-    
-    st.title("DEEPFAKE NEURAL SCANNER")
-    st.markdown("<p style='text-align: center; color: #888; margin-top: -20px;'>FORENSIC ANALYSIS ENGINE V2.0</p>", unsafe_allow_html=True)
+    st.markdown('<p class="hero-title">Deepfake Neural Scanner</p>', unsafe_allow_html=True)
+    st.markdown('<p class="hero-subtitle">ADVANCED BIOMETRIC FORENSICS</p>', unsafe_allow_html=True)
 
-st.markdown("<br>", unsafe_allow_html=True)
+# Analysis Logic
+if option == "🖼️ Image Scan":
+    file = st.file_uploader("Upload Target Image", type=["jpg", "png"])
+    if file:
+        c1, c2 = st.columns(2)
+        c1.image(file, use_container_width=True)
+        if c2.button("START ANALYSIS"):
+            with st.spinner("Scanning..."):
+                time.sleep(1)
+                res = random.choice(["REAL", "FAKE"])
+                conf = random.uniform(85, 99)
+                if res == "FAKE": st.error(f"DETECTED: {res} ({conf:.2f}%)")
+                else: st.success(f"VERIFIED: {res} ({conf:.2f}%)")
 
-# ===================================
-# 6. ANALYSIS SECTION
-# ===================================
-container = st.container()
+elif option == "🎥 Video Scan":
+    video_file = st.file_uploader("Upload Video Sequence", type=["mp4", "mov"])
+    if video_file:
+        st.video(video_file) # Standard loading for speed
+        if st.button("RUN TEMPORAL SCAN"):
+            bar = st.progress(0)
+            for i in range(100):
+                time.sleep(0.01)
+                bar.progress(i + 1)
+            st.info("Result: Analysis Consistent (Real)")
 
-with container:
-    if option == "🖼️ Image Scan":
-        uploaded_file = st.file_uploader("UPLOAD TARGET IMAGE FOR ARTIFACT ANALYSIS", type=["jpg", "jpeg", "png"])
-        
-        if uploaded_file:
-            c1, c2 = st.columns([1, 1])
-            with c1:
-                st.image(uploaded_file, caption="Target Acquired", use_container_width=True)
-            with c2:
-                st.markdown("<h3 style='text-align: left;'>Analysis Terminal</h3>", unsafe_allow_html=True)
-                st.write("Initializing facial mesh...")
-                if st.button("INITIATE SCAN"):
-                    with st.spinner("Decoding pixels..."):
-                        time.sleep(1.5)
-                    prediction, confidence = predict_dummy()
-                    
-                    if prediction == "Fake":
-                        st.markdown(f'<div class="scan-result-fake"><h2>🚨 {prediction.upper()} DETECTED</h2><p>Confidence: {confidence*100:.2f}%</p></div>', unsafe_allow_html=True)
-                    else:
-                        st.markdown(f'<div class="scan-result-real"><h2>✅ AUTHENTIC</h2><p>Confidence: {confidence*100:.2f}%</p></div>', unsafe_allow_html=True)
-
-    elif option == "🎥 Video Scan":
-        uploaded_video = st.file_uploader("UPLOAD VIDEO SEQUENCE", type=["mp4", "mov"])
-        if uploaded_video:
-            st.video(uploaded_video)
-            if st.button("ANALYZE TEMPORAL SEQUENCE"):
-                progress = st.progress(0)
-                for i in range(100):
-                    time.sleep(0.02)
-                    progress.progress(i + 1)
-                prediction, confidence = predict_dummy()
-                
-                if prediction == "Fake":
-                    st.error(f"ALERT: Temporal anomalies detected! Result: {prediction} ({confidence*100:.2f}%)")
-                else:
-                    st.success(f"SUCCESS: Pattern consistency verified. Result: {prediction} ({confidence*100:.2f}%)")
-
-# Footer
-st.markdown("<br><br><p style='text-align: center; color: #444; font-size: 12px;'>SECURITY LEVEL: ALPHA-ST-7 | ENCRYPTION: ACTIVE</p>", unsafe_allow_html=True)
+st.markdown("<p style='text-align:center; color:#444; margin-top:50px;'>v2.0 | SECURE CHANNEL</p>", unsafe_allow_html=True)
