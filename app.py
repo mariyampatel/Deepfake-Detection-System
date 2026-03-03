@@ -19,7 +19,7 @@ st.markdown("""
     <style>
     /* Main Background - Deep Cyber Black */
     .stApp {
-        background-color: #080A0C;
+        background-color: #1E1B4B;
         color: #FFFFFF !important;
     }
     
@@ -152,4 +152,5 @@ elif option == "VIDEO SCAN":
             show_final_result(res, conf)
 
 st.markdown("<br><p style='text-align:center; opacity:0.5;'>SYSTEM V4.0.2 | SECURE PROTOCOL</p>", unsafe_allow_html=True)
+
 
