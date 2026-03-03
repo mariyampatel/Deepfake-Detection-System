@@ -51,7 +51,7 @@ st.markdown("""
 # ===================================
 with st.sidebar:
     st.markdown("<h2 style='color:#00FF7F;'>CORE TERMINAL</h2>", unsafe_allow_html=True)
-    st.image("56387", use_container_width=true)
+    st.image("56387.jpg", use_container_width=true)
     option = st.radio("SELECT SCAN TYPE:", ["IMAGE SCAN", "VIDEO SCAN"])
 
 # ===================================
@@ -106,3 +106,4 @@ elif option == "VIDEO SCAN":
             show_result(res, conf)
 
 st.markdown("<br><p style='text-align:center; opacity:0.5;'>SYSTEM V4.0 | ENCRYPTED LINK</p>", unsafe_allow_html=True)
+
