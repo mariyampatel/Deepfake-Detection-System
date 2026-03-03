@@ -97,7 +97,7 @@ st.markdown("""
 # ===================================
 with st.sidebar:
     st.markdown("<h2>CORE TERMINAL</h2>", unsafe_allow_html=True)
-    st.image("https://i.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJueXF3ZzRyeXF3ZzRyeXF3ZzRyeXF3ZzRyeXF3ZzRyeXF3ZyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/3o7TKVUn7iM8FMEU24/giphy.gif")
+    st.image("56387.jpg", use_container_width=True)
     
     st.markdown("<br>", unsafe_allow_html=True)
     option = st.radio("SELECT SCAN TYPE:", ["IMAGE SCAN", "VIDEO SCAN"])
@@ -109,7 +109,7 @@ with st.sidebar:
 # ===================================
 # 4. MAIN INTERFACE
 # ===================================
-st.image("1000125282.jpg", use_container_width=True) #
+st.image("image.jpg.jpeg", use_container_width=True) #
 st.markdown('<p class="hero-title">Neural Scanner Pro</p>', unsafe_allow_html=True)
 st.markdown('<p class="hero-subtitle">ADVANCED DEEPFAKE DETECTION</p>', unsafe_allow_html=True)
 
@@ -152,3 +152,4 @@ elif option == "VIDEO SCAN":
             show_final_result(res, conf)
 
 st.markdown("<br><p style='text-align:center; opacity:0.5;'>SYSTEM V4.0.2 | SECURE PROTOCOL</p>", unsafe_allow_html=True)
+
