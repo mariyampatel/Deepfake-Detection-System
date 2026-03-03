@@ -17,18 +17,17 @@ st.set_page_config(
 # ================= ==================
 st.markdown("""
     <style>
-    /* Global Application Background - Deep Space Black */
+    /* Global Application Background - Deep Navy */
     .stApp {
-        background-color: #050608;
-        color: #E0E0E0;
+        background-color: #0F172A;
+        color: #F1F5F9;
     }
     
-    /* SIDEBAR - Full Visibility Fix */
+    /* SIDEBAR */
     [data-testid="stSidebar"] {
-        background-color: #0B0D11 !important;
-        border-right: 2px solid #00FF7F; /* Green outline definition */
+        background-color: #111827 !important;
+        border-right: 2px solid #00E5FF;
     }
-    /* Restoration: Previous Sidebar Style */
     [data-testid="stSidebar"] *, 
     [data-testid="stSidebar"] label, 
     [data-testid="stSidebar"] p { 
@@ -36,85 +35,88 @@ st.markdown("""
         font-weight: 500;
     }
     [data-testid="stSidebar"] h2 {
-        color: #00FF7F !important;
-        text-shadow: 0px 0px 10px rgba(0, 255, 127, 0.4);
+        color: #00E5FF !important;
+        text-shadow: 0px 0px 12px rgba(0, 229, 255, 0.5);
     }
 
-    /* HEADER TYPOGRAPHY */
+    /* HERO TITLE - BIGGER */
     .hero-title {
-        color: #00FF7F;
-        font-size: 80px; /* Large Font Size */
+        color: #00E5FF;
+        font-size: 100px;  /* Increased */
         font-weight: 900;
         text-align: center;
-        letter-spacing: 5px;
+        letter-spacing: 6px;
         text-transform: uppercase;
         margin-top: 10px;
         margin-bottom: 0px;
-        text-shadow: 0px 0px 20px rgba(0, 255, 127, 0.6);
+        text-shadow: 0px 0px 25px rgba(0, 229, 255, 0.6);
     }
+
     .hero-subtitle {
-        color: #888;
+        color: #94A3B8;
         text-align: center;
-        font-size: 16px;
+        font-size: 18px;
         letter-spacing: 8px;
         margin-top: -15px;
         margin-bottom: 40px;
     }
 
-    /* MAIN INTERFACE - RESIZED IMAGE */
+    /* HEADER IMAGE */
     .header-img-container {
         display: flex;
         justify-content: center;
         margin-top: 10px;
     }
     .header-img-container img {
-        max-width: 15% !important; /* SIGNIFICANTLY REDUCED SIZE */
-        border-radius: 10px;
-        border: 2px solid #00FF7F;
+        max-width: 18% !important;
+        border-radius: 12px;
+        border: 2px solid #00E5FF;
+        box-shadow: 0px 0px 20px rgba(0, 229, 255, 0.4);
     }
 
-    /* GLASSMORPHISM CARD FOR RESULTS */
+    /* RESULT BOX */
     .result-box {
         padding: 30px;
         border-radius: 15px;
         text-align: center;
-        background: rgba(255, 255, 255, 0.03); /* subtle white layer */
-        backdrop-filter: blur(10px); /* blur effect */
-        -webkit-backdrop-filter: blur(10px);
-        border: 2px solid #FFFFFF;
+        background: rgba(255, 255, 255, 0.04);
+        backdrop-filter: blur(8px);
+        border: 2px solid #FFFFFF22;
         box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
     }
+
     .result-text {
-        font-size: 32px;
+        font-size: 34px;
         font-weight: bold;
         text-transform: uppercase;
         margin-bottom: 5px;
     }
+
     .confidence-text {
         font-size: 18px;
-        color: #FFFFFF;
+        color: #CBD5E1;
     }
 
-    /* INPUT ACCENTS (Uploader & Status Bar) */
+    /* INPUT ACCENTS */
     .stFileUploader label { color: #FFFFFF !important; }
-    .stProgress > div > div > div > div { background-color: #00FF7F; }
+    .stProgress > div > div > div > div { background-color: #00E5FF; }
     
-    /* FAST INTERACTIVE BUTTON */
+    /* BUTTON */
     div.stButton > button {
         background: transparent;
-        color: #00FF7F;
-        border: 2px solid #00FF7F;
-        border-radius: 5px;
+        color: #00E5FF;
+        border: 2px solid #00E5FF;
+        border-radius: 6px;
         padding: 12px 20px;
         font-weight: 700;
         transition: 0.3s ease;
         width: 100%;
     }
+
     div.stButton > button:hover {
-        background: #00FF7F;
+        background: #00E5FF;
         color: #000000;
-        border: 2px solid #00FF7F;
-        box-shadow: 0px 0px 15px rgba(0, 255, 127, 0.6);
+        box-shadow: 0px 0px 18px rgba(0, 229, 255, 0.6);
     }
     </style>
 """, unsafe_allow_html=True)
@@ -159,7 +161,7 @@ st.markdown('<p class="hero-subtitle">ADVANCED DEEPFAKE DETECTION</p>', unsafe_a
 # ================= ==================
 # Reusable Result Function (Keeping this from request, looks professional)
 def show_final_result(res, conf):
-    color = "#FF003C" if res == "Fake" else "#00FF7F"
+    color = "#FF3B3B" if res == "Fake" else "#00E676"
     icon = "🚨" if res == "Fake" else "✅"
     # Result Box (White/Neon styling)
     st.markdown(f'''
@@ -207,3 +209,4 @@ with container:
                 show_final_result(prediction, confidence)
 
 st.markdown("<br><br><p style='text-align:center; color:#555;'>SECURE CHANNEL | ENCRYPTION ACTIVE</p>", unsafe_allow_html=True)
+
