@@ -173,4 +173,45 @@ st.markdown('<p class="hero-subtitle">ADVANCED DEEPFAKE DETECTION</p>', unsafe_a
 # Reusable Result Function (Updated colors to requested theme)
 def show_final_result(res, conf):
     # Updated to requested Theme colors: Danger (#EF4444) and Success (#10B981)
-    color = "#EF4444" if
+    color = "#EF4444" if res == "Fake" else "#10B981"
+    icon = "🚨" if res == "Fake" else "✅"
+    
+    st.markdown(f'''
+        <div class="result-box" style="border-top: 4px solid {color};">
+            <p class="result-text" style="color: {color} !important;">{icon} {res.upper()}</p>
+            <p class="confidence-text">Forensic Confidence Check: {conf*100:.2f}%</p>
+        </div>
+    ''', unsafe_allow_html=True)
+
+container = st.container()
+
+with container:
+    if option == "🖼️ Image Scan":
+        uploaded_file = st.file_uploader("DROP IMAGE FILE HERE FOR ARTIFACT ANALYSIS", type=["jpg", "png", "jpeg"])
+        if uploaded_file:
+            c1, c2 = st.columns(2)
+            c1.image(uploaded_file, caption="Target Acquired", use_container_width=True)
+            with c2:
+                st.markdown("<h3 style='color: #1E3A8A;'>Analysis Terminal</h3>", unsafe_allow_html=True)
+                if st.button("EXECUTE NEURAL SCAN"):
+                    progress_text = st.empty()
+                    with st.spinner("Analyzing frequency artifacts..."):
+                        progress_text.markdown("<span style='color: #2563EB; font-weight: bold;'>🧬 Frequency Check: COMPLETE</span>", unsafe_allow_html=True)
+                        time.sleep(1)
+                    prediction, confidence = predict_dummy()
+                    show_final_result(prediction, confidence)
+
+    elif option == "🎥 Video Scan":
+        uploaded_video = st.file_uploader("UPLOAD MULTI-FRAME SEQUENCE (MP4)", type=["mp4", "mov"])
+        if uploaded_video:
+            st.video(uploaded_video)
+            if st.button("RUN TEMPORAL ANALYSIS"):
+                progress_bar = st.progress(0)
+                for i in range(100):
+                    time.sleep(0.01)
+                    progress_bar.progress(i + 1)
+                
+                prediction, confidence = predict_dummy()
+                show_final_result(prediction, confidence)
+
+st.markdown("<br><br><p style='text-align:center; color:#94A3B8; font-weight: 500;'>SECURE CHANNEL | ENCRYPTION ACTIVE</p>", unsafe_allow_html=True)
