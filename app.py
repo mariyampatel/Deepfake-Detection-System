@@ -121,7 +121,7 @@ def predict_dummy():
 with st.sidebar:
     st.markdown("<h2>SYSTEM TERMINAL</h2>", unsafe_allow_html=True)
     # Technical GIF for Sidebar (using high-visibility source)
-    st.image("56387", use_container_width=True)
+    st.image("56387.jpg", use_container_width=True)
     
     st.markdown("---")
     option = st.radio("SELECT MODE:", ["🖼️ Image Scan", "🎥 Video Scan"])
@@ -187,3 +187,4 @@ with container:
                 st.success("Sequence Analysis Complete: Normal Consistency (Real)")
 
 st.markdown("<br><br><p style='text-align:center; color:#555;'>Alpha-Secure Channel | v2.0</p>", unsafe_allow_html=True)
+
