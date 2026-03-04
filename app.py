@@ -1,6 +1,8 @@
 import streamlit as st
 import random
 import time
+import tempfile # <--- Added tempfile for fast video loading
+
 
 # ================= ==================
 # 1. PAGE CONFIGURATION
@@ -204,7 +206,14 @@ with container:
     elif option == "🎥 Video Scan":
         uploaded_video = st.file_uploader("UPLOAD MULTI-FRAME SEQUENCE (MP4)", type=["mp4", "mov"])
         if uploaded_video:
-            st.video(uploaded_video)
+            
+            # --- UPDATED FAST VIDEO LOADING LOGIC ---
+            with st.spinner("Optimizing video playback..."):
+                tfile = tempfile.NamedTemporaryFile(delete=False, suffix='.mp4')
+                tfile.write(uploaded_video.read())
+                st.video(tfile.name)
+            # ----------------------------------------
+
             if st.button("RUN TEMPORAL ANALYSIS"):
                 progress_bar = st.progress(0)
                 for i in range(100):
